@@ -2,11 +2,28 @@ const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const util = require('util');
-const webSocketServer = require('ws').Server;
+const WebSOcket = require('ws');
 const httpport = 80;
 const websocketport = 8000;
 
-var ws = new webSocketServer({port: websocketport});
+// websocket
+const ws_server = new WebSOcket.Server({
+    port : websocketport
+});
+
+let sockets = [];
+
+ws_server.on('connection', function(socket) {
+    sockets.push(socket);
+    socket.on('message', function(msg) {
+        sockets.forEach(s => s.send(msg));
+        console.log("recieved ws msg");
+        console.log(msg);
+    });
+    socket.on('close', function() {
+        sockets = sockets.filter(s => s!== socket);
+    });
+});
 
 function afterDotToFileType(afterDot) {
     switch (afterDot) {
