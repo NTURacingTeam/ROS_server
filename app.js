@@ -16,12 +16,13 @@ let sockets = [];
 ws_server.on('connection', function(socket) {
     sockets.push(socket);
     socket.on('message', function(msg) {
-        sockets.forEach(s => s.send(msg));
+        var json_data = JSON.parse(msg);
+        console.log(json_data);
+        sockets.filter(s => s !== socket).forEach(s => s.send(JSON.stringify(json_data)));
         console.log("recieved ws msg");
-        console.log(msg);
     });
     socket.on('close', function() {
-        sockets = sockets.filter(s => s!== socket);
+        sockets = sockets.filter(s => s !== socket);
     });
 });
 
