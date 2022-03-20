@@ -2,12 +2,12 @@ const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const util = require('util');
-const WebSOcket = require('ws');
+const WebSocket = require('ws');
 const httpport = 80;
 const websocketport = 8000;
 
-// websocket
-const ws_server = new WebSOcket.Server({
+// websocket server end
+const ws_server = new WebSocket.Server({
     port : websocketport
 });
 
@@ -25,6 +25,14 @@ ws_server.on('connection', function(socket) {
         sockets = sockets.filter(s => s !== socket);
     });
 });
+
+// // websocket client end
+// let client = new WebSocket('ws://localhost:' + websocketport)
+// client.on('message', msg => consoe.log(msg)) ;
+// await new Promise(resolve => client.once('open', resolve));
+// client.send(JSON.stringify(
+//     {name:"GPS",value:9.1,time:123.4}
+// ));
 
 function afterDotToFileType(afterDot) {
     switch (afterDot) {
