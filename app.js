@@ -26,13 +26,7 @@ ws_server.on('connection', function(socket) {
     });
 });
 
-// // websocket client end
-// let client = new WebSocket('ws://localhost:' + websocketport)
-// client.on('message', msg => consoe.log(msg)) ;
-// await new Promise(resolve => client.once('open', resolve));
-// client.send(JSON.stringify(
-//     {name:"GPS",value:9.1,time:123.4}
-// ));
+// websocket client end
 
 function afterDotToFileType(afterDot) {
     switch (afterDot) {
