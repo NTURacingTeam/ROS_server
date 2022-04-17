@@ -23,6 +23,7 @@ ws_server.on('connection', function(socket) {
         } catch(error) {
             console.log("not json");
             console.log("error: " + error.message);
+            console.log("message: \n" + msg);
             return 0;
         };
         json_to_send = JSON.stringify(json_data);
