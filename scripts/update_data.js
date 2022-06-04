@@ -1,5 +1,6 @@
 // websocket
-wb_url = "ws://localhost:8000";
+// wb_url = "ws://localhost:8000";
+wb_url = "ws://124.218.222.22:8080";
 const socket = new WebSocket(wb_url);
 
 socket.onopen = function(event) {
