@@ -14,6 +14,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts/jcanvas.js"></script>
+    <!-- <script src="https://raw.githubusercontent.com/caleb531/jcanvas/v21.0.1/dist/jcanvas.js"></script> -->
     <script src="scripts/main.js"></script>
     <script src="scripts/update_data.js"></script>
 </head>
@@ -27,6 +29,29 @@
             <div class="col">.col text text text text text text text text text text</div>
             <div class="col">.col text text text text text text text text text text</div>
             <div class="col">.col text text text text text text text text text text</div>
+        </div>
+    </div>
+    <div class="containter" id="control-tower">
+        <div class="row">
+            <div class="col-12 col-md-6" id="speed">speed</div>
+            <div class="col-6 col-md-3" id="egg_graph">egg graph</div>
+            <div class="col-6 col-md-3" id="steering_angle">steering angle</div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6" id="motor_speed">motor speed</div>
+            <div class="col-2 col-md-1" id="brake_pedal">brake pedal</div>
+            <div class="col-2 col-md-1" id="acc_pedal">acceletation pedal</div>
+            <div class="col-2 col-md-1" id="max_battery_temp">max battery temperature</div>
+            <div class="col-2 col-md-1" id="min_battery_temp">min battery voltage</div>
+            <div class="col-2 col-md-1" id="max_battery_voltage">max battery voltage</div>
+            <div class="col-2 col-md-1" id="battery_capacity">battery capacity</div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="map">map</div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3" id="pitch">pitch</div>
+            <div class="col-6 col-md-3" id="roll">roll</div>
         </div>
     </div>
     <div class="container">
