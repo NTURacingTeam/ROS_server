@@ -9,6 +9,7 @@
     <base href="./" target="_blank">
     <title>Jack Kuo's test page</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/epoch.min.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,6 +19,8 @@
     <!-- <script src="https://raw.githubusercontent.com/caleb531/jcanvas/v21.0.1/dist/jcanvas.js"></script> -->
     <script src="scripts/main.js"></script>
     <script src="scripts/update_data.js"></script>
+    <script src="scripts/d3_copy.js"></script>
+    <script src="scripts/epoch.min.js"></script>
 </head>
 <body>
     <nav></nav>
@@ -131,5 +134,43 @@
         </div>
     </div>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script> -->
+
+    <div id="lineChart" class="epoch category10" style="width: 800px; height: 200px"></div>
+    
+<script>
+    var buffer1 = 0;
+    var buffer2 = 5;
+    var lineChartData = [
+  // First series
+  {
+    label: "Series 1",
+    values: []
+  },
+
+  // The second series
+  {
+    label: "Series 2",
+    values: []
+  }
+];
+    $(function() {
+        function nextData(){
+            var now = (new Date()).getTime() /1000 |0;
+            //console.log(now);
+            return [
+                {time:now, y: now%11},
+                {time:now, y: now%5}
+            ];
+        };
+        var chart = $("#lineChart").epoch({
+            type: "time.line",
+            data: lineChartData,
+            axes: ["left", "bottom", "right"]
+        });
+
+        setInterval(function() { chart.push(nextData()) }, 1000);
+        chart.push(nextData());
+    })
+</script>
 </body>
 </html>
