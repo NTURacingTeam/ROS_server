@@ -8,7 +8,7 @@ socket.onopen = function(event) {
     console.log(event);
     setTimeout(function() {
         socket.send(JSON.stringify(
-            {name:["FWS","L"],value:1.1,time:123.4}
+            {name:"accelerator_1",value:1.1,time:123.4}
         ));
     }, 1000);
 };
@@ -18,63 +18,15 @@ socket.onmessage = function(event) {
     console.log(event);
     var data = JSON.parse(event.data);
     console.log(data);
-    $("#"+data.name[0]+"-"+data.name[1]+"-value").text(data.value.toString());
+    $("#"+data.name+"-value").text(data.value.toString());
 };
 
 // data
 const data_list = [
-    {name:["FWS","L"],value:0.0}, // front left wheel speed
-    {name:["FWS","R"],value:0.0}, // front right wheel speed
-    {name:["FWT","L1"],value:0.0},
-    {name:["FWT","L2"],value:0.0},
-    {name:["FWT","R1"],value:0.0},
-    {name:["FWT","R2"],value:0.0},
-    {name:["BRK","N"],value:0.0}, // breaking pedal
-    {name:["THR","A"],value:0.0}, // accelration pedal A
-    {name:["THR","B"],value:0.0}, // accelration pedal B
-    {name:["STR","N"],value:0.0}, // steering wheel angle
-    {name:["FSS","L"],value:0.0},
-    {name:["FSS","R"],value:0.0},
-    {name:["OPR","N"],value:0.0},
-    {name:["RWS","L"],value:0.0}, // rear left wheel speed
-    {name:["RWS","R"],value:0.0}, // rear right wheel speed
-    {name:["RWT","L1"],value:0.0},
-    {name:["RWT","L2"],value:0.0},
-    {name:["RWT","R1"],value:0.0},
-    {name:["RWT","R2"],value:0.0},
-    {name:["RSS","L"],value:0.0},
-    {name:["RSS","R"],value:0.0},
-    {name:["HIS","P"],value:0.0},
-    {name:["HIS","R"],value:0.0},
-    {name:["HIA","X"],value:0.0},
-    {name:["HIA","Y"],value:0.0},
-    {name:["HIA","Z"],value:0.0},
-    {name:["HIG","X"],value:0.0},
-    {name:["HIG","Y"],value:0.0},
-    {name:["HIG","Z"],value:0.0},
-    {name:["HIC","X"],value:0.0},
-    {name:["HIC","Y"],value:0.0},
-    {name:["HIC","Z"],value:0.0},
-    {name:["OIS","P"],value:0.0},
-    {name:["OIS","R"],value:0.0},
-    {name:["OIA","X"],value:0.0},
-    {name:["OIA","Y"],value:0.0},
-    {name:["OIA","Z"],value:0.0},
-    {name:["OIG","X"],value:0.0},
-    {name:["OIG","Y"],value:0.0},
-    {name:["OIG","Z"],value:0.0},
-    {name:["OIC","X"],value:0.0},
-    {name:["OIC","Y"],value:0.0},
-    {name:["OIC","Z"],value:0.0},
-    {name:["MTC","N"],value:0.0},
-    {name:["MSC","N"],value:0.0},
-    {name:["MDC","N"],value:0.0},
-    {name:["MIE","N"],value:0.0},
-    {name:["MID","N"],value:0.0},
-    {name:["MSM","N"],value:0.0},
-    {name:["MTL","N"],value:0.0},
-    {name:["GPS","X"],value:0.0}, // GPS longitude
-    {name:["GPS","Y"],value:0.0} // GPS latitude
+    {name:"accelerator_1", value:0.0},
+    {name:"accelerator_2", value:0.0},
+    {name:"accelerator_micro", value:0.0},
+    {name:"brake", value:0.0}
 ]
 
 
@@ -83,49 +35,63 @@ const data_list = [
 
 // construct graph
 /// egg graph canvas
-var egg_c_width ;
-var egg_c ;
-
-function egg_c_update(acceleration_x, acceleration_y){
-    egg_c.animateLayer("data_dot", {
-        x: egg_c_width/2 + acceleration_x, y: egg_c_width/2 - acceleration_y,
-    })
+let egg_class = class {
+    c_width;
+    c;
+    c_update(acceleration_x, acceleration_y){
+        this.c.animateLayer("data_dot", {
+            x: this.c_width/2 + acceleration_x, y: this.c_width/2 - acceleration_y,
+        });
+    }
+    c_init(){
+        this.c_width = $("#egg_graph").width();
+        $("#egg_graph").text("").append($("<canvas></canvas>")
+            .attr("width", this.c_width.toString()).attr("height", this.c_width.toString()));
+        this.c = $("#egg_graph > canvas");
+        this.c.addLayer({
+            type: "arc",
+            strokeStyle: "black",
+            strokeWidth: 5,
+            x: this.c_width/2, y: this.c_width/2,
+            radius: this.c_width*0.45
+        }).addLayer({
+            type: "line",
+            strokeStyle: "black",
+            strokeWidth: "4",
+            x1:0, y1:this.c_width/2,
+            x2:this.c_width, y2:this.c_width/2
+        }).addLayer({
+            type: "line",
+            strokeStyle: "black",
+            strokeWidth: "4",
+            y1:0, x1:this.c_width/2,
+            y2:this.c_width, x2:this.c_width/2
+        });
+        this.c.addLayer({
+            name: "data_dot",
+            type: "arc",
+            fillStyle: "red",
+            x: this.c_width/2, y: this.c_width/2,
+            radius: this.c_width*0.03
+        }).drawLayers();
+    }
 };
-
-function egg_c_init(){
-    egg_c_width = $("#egg_graph").width();
-    $("#egg_graph").text("").append($("<canvas></canvas>").attr("width", egg_c_width.toString()).attr("height", egg_c_width.toString()));
-    egg_c = $("#egg_graph > canvas");
-    egg_c.addLayer({
-        type: "arc",
-        strokeStyle: "black",
-        strokeWidth: 5,
-        x: egg_c_width/2, y: egg_c_width/2,
-        radius: egg_c_width*0.45
-    }).addLayer({
-        type: "line",
-        strokeStyle: "black",
-        strokeWidth: "4",
-        x1:0, y1:egg_c_width/2,
-        x2:egg_c_width, y2:egg_c_width/2
-    }).addLayer({
-        type: "line",
-        strokeStyle: "black",
-        strokeWidth: "4",
-        y1:0, x1:egg_c_width/2,
-        y2:egg_c_width, x2:egg_c_width/2
-    });
-    egg_c.addLayer({
-        name: "data_dot",
-        type: "arc",
-        fillStyle: "red",
-        x: egg_c_width/2, y: egg_c_width/2,
-        radius: egg_c_width*0.03
-    }).drawLayers();
-}
+let egg = new egg_class();
 
 
 /// steering angle canvas
+let steer = class {
+    c_width;
+    steering_arrow_length;
+    c;
+    c_update(steer_ang){
+        steer_c.animateLayer("data_arrow", {
+            x2: 0 + steering_arrow_length * Math.cos(steer_ang),
+            y2: 0 - steering_arrow_length * Math.sin(steer_ang)
+        }, 10)
+    };
+}
+
 var steer_c_width ;
 var steering_arrow_length ;
 var steer_c ;
@@ -267,15 +233,55 @@ function max_battery_temp_c_init(){
     }).drawLayers();
 };
 
+/// speed
+var GPS_data = 0;
+var Hall_effect_data = 0;
+var lineChartData = [
+  { label: "GPS", values: [] },
+  { label: "Hall effect", values: [] }
+];
+var chart ;
+function speed_c_update(){
+    var now = (new Date()).getTime() /1000 |0;
+    GPS_data = now%11;
+    Hall_effect_data = now%7;
+}; // to be continued ...
+setInterval(function() {speed_c_update()}, 1000);
+
+function speed_c_init(){
+    $("#speed_c").css("width", $("#speed").width().toString()).css("height", ( $("#speed").width()/2 ).toString()).attr("class", "epoch category10");
+    $(function() {
+        function nextData(){
+            var now = (new Date()).getTime() /1000 |0;
+            //console.log(now);
+            return [
+                {time:now, y: GPS_data},
+                {time:now, y: Hall_effect_data}
+            ];
+        };
+        chart = $("#speed_c").epoch({
+            type: "time.line",
+            data: lineChartData,
+            axes: ["left", "bottom", "right"]
+        });
+
+        setInterval(function() { chart.push(nextData()) }, 1000);
+        chart.push(nextData());
+    })
+}
+
 $(document).ready(function(){ // or you can type "$(function(){}"
     data_list.forEach(function(content, index){
-        $("#data-name").append($("<p></p>").attr("class","bg-body").attr("id",content.name[0]+"-"+content.name[1]+"-name").text(content.name));
-        $("#data-value").append($("<p></p>").attr("class","bg-body").attr("id",content.name[0]+"-"+content.name[1]+"-value").text(content.value));
+        $("#data-name").append($("<p></p>").attr("class","bg-body").attr("id",content.name+"-name").text(content.name));
+        $("#data-value").append($("<p></p>").attr("class","bg-body").attr("id",content.name+"-value").text(content.value));
     });
     $("#control-tower div").addClass("bg-info border text-white text-center");
 
-    egg_c_init();
-    egg_c_update(10,20);
+    // egg_c_init();
+    // egg_c_update(10,20);
+
+    egg.c_init();
+    egg.c_update(10,20);
 
     steer_c_init();
     steer_c_update(0.2);
@@ -288,6 +294,6 @@ $(document).ready(function(){ // or you can type "$(function(){}"
 
     max_battery_temp_c_init();
     max_battery_temp_c_update(50);
-
+    speed_c_init();
 });
 
