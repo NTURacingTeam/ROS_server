@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "d3": "^3.5.17",
-    "epoch-charting": "^0.8.4",
-    "websocket": "^1.0.34",
-    "ws": "^8.4.0"
-  }
-}
