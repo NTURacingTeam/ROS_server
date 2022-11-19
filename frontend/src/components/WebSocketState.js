@@ -15,25 +15,17 @@ const WebSocketState = () => {
 	const message = JSON.stringify({name: "acceleration_1", value: 127}) 
 
 	const handleClickSendMessage = useCallback(() => sendMessage(message), []);
-
-	const connectionStatus = {
-		[ReadyState.CONNECTING]: 'Connecting',
-		[ReadyState.OPEN]: 'Open',
-		[ReadyState.CLOSING]: 'Closing',
-		[ReadyState.CLOSED]: 'Closed',
-		[ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-	}[readyState];
 	
-
-
+	const connectionStatus = {
+			[ReadyState.CONNECTING]: 'Connecting',
+			[ReadyState.OPEN]: 'Open',
+			[ReadyState.CLOSING]: 'Closing',
+			[ReadyState.CLOSED]: 'Closed',
+			[ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+		}[readyState];
+	
 	return (
-		<div>
-			<button onClick={handleClickSendMessage} disabled={readyState !== ReadyState.OPEN} >
-				Click Me to send {message}
-			</button>
-			<span>The WebSocket is currently {connectionStatus}</span>
-			{lastMessage ? <span>Last message: {lastMessage.data}</span> : null}
-		</div>
+		{socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage, sendMessage, sendJsonMessage}
 	)
 }
 

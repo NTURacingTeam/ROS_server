@@ -21,8 +21,7 @@ ws_server.on('connection', function(socket) {
             return 0;
         };
         const json_to_send = JSON.stringify(json_data);
-        // sockets.filter(s => s !== socket).forEach(s => s.send(json_to_send));
-        sockets.forEach(s => s.send(json_to_send));
+        sockets.filter(s => s !== socket).forEach(s => s.send(json_to_send));
         // console.log("recieved ws msg");
     });
     socket.on('close', function() {

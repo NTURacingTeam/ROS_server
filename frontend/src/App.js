@@ -1,5 +1,6 @@
 import DataTable from "./components/DataTable"
-import WebSocketState from './components/WebSocketState';
+import { WebSocketDemo } from "./components/WebSocketDemo";
+// import SignIn from "./components/SigninExample"
 
 function App() {
 	// let { WSmessage, sendData } = WebSocketState() ; 
@@ -8,7 +9,8 @@ function App() {
 		<div className="App">
 			<h1> NTU Racing team remote monitor (ctower) </h1>
 			<DataTable />
-			<WebSocketState />
+			{/* <SignIn /> */}
+			<WebSocketDemo />
 		</div>
 	);
 }

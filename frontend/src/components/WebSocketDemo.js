@@ -18,10 +18,17 @@ export const WebSocketDemo = () => {
     () => setSocketUrl('ws://124.218.222.22:8080'),
     []
   );
+  
+  const initMessage = JSON.stringify({name: "accelerator_1", value: 127});
+  const [message, setMessage] = useState(initMessage);
 
-  const message = JSON.stringify({name: "acceleration_1", value: 127}) 
+  const handleClickSendMessage = () => {console.log(message); sendMessage(message)};
 
-  const handleClickSendMessage = useCallback(() => sendMessage(message), []);
+  const handleInputOnKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      handleClickSendMessage()
+    }
+  }
 
   const handleClickCheckState = useCallback(() => console.log(connectionStatus), [])
 
@@ -33,11 +40,17 @@ export const WebSocketDemo = () => {
     [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
   }[readyState];
 
+  const handleInputChange = (event) =>  {
+    console.log(event.target.value)
+    setMessage(event.target.value)
+  }
+
   return (
     <div>
       {/* <button onClick={handleClickChangeSocketUrl}>
         Click Me to change Socket Url
       </button> */}
+      <input style={{ width:"300px" }} onChange={handleInputChange} value={message} onKeyDown={handleInputOnKeyDown}></input>
       <button
         onClick={handleClickSendMessage}
         disabled={readyState !== ReadyState.OPEN}
