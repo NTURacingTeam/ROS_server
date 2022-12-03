@@ -7,6 +7,7 @@ import Other from "../../components/GUI/Other"
 import Pedal from "../../components/GUI/Pedal"
 import Steer from "../../components/GUI/Steer"
 import Wheel from "../../components/GUI/Wheel"
+import Torque from "../../components/GUI/Torque"
 
 const FramesContext = createContext({
     rows: {},
@@ -344,6 +345,7 @@ const FramesProvider = (props) => {
         Pedal: Pedal,
         Steer: Steer,
         Wheel: Wheel,
+        Torque: Torque
     }
 
     return (

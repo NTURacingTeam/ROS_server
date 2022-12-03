@@ -1,7 +1,7 @@
 import { useFrames } from "./hooks/useFrames"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContent, useContext } from 'react';
 import styled from 'styled-components'
-import { Row, Slider } from 'antd';
+import { Row } from 'antd';
 import { useWebSocket } from './hooks/useWebSocket';
 
 
@@ -12,10 +12,10 @@ const StyledRow = styled(Row)`
 `
 
 export default () => {
-    const {socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage} = useWebSocket() ;
+    const {socketUrl, connectionStatus, readyState, lastJsonMessage} = useWebSocket() ;
 
     const { GUI, batchUpdate } = useFrames();
-    const { GPS, IMU, Motor, Other, Pedal, Steer, Wheel } = GUI;
+    const { GPS, IMU, Motor, Other, Pedal, Steer, Wheel, Torque } = GUI;
     const [baseCol, setbaseCol] = useState(8);
     
     useEffect(() => {
@@ -33,6 +33,13 @@ export default () => {
             <h1>GUI page</h1><p>base column: {baseCol}/24</p>
             <StyledRow gutter={[24, 24]}>
                 <Pedal baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <Motor baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <Steer baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <Torque baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <Wheel baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <IMU baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <GPS baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <Other baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
             </StyledRow>
         </div>
     )

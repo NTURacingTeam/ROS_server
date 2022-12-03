@@ -1,6 +1,17 @@
+import GUIstyle from "./GUIstyle"
+import { useFrames } from "../../routes/hooks/useFrames"
 
-export default () => {
+export default ({ baseCol, lastJsonMessage}) => {
+
+    const { rows } = useFrames();
+    const dataRow = [
+        "oil_pressure"
+    ]
     return (
-        <p>Other</p>
+        <GUIstyle title={"Other"} rows={1} columns={1} baseCol={baseCol}>
+            {dataRow.map( (ele) => (
+                <div key={ele}>{ele}:{rows[ele].value}</div>
+            ))}
+        </GUIstyle>
     )
 }

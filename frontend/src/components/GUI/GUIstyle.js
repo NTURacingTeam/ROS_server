@@ -21,12 +21,18 @@ const StyledCol = styled(Col)`
 export default ({title, rows, columns, baseCol, children}) => {
     const divRef = useRef(null);
     const [height, setHeight] = useState(100);
+    const [makeSquare, setMakeSquare] = useState(false)
+
 	useEffect(() => {
-		try {
-			const h = divRef.current.offsetWidth;
-			setHeight(h);
-		} catch (error) { console.log(error)}
-	}, [divRef.current]);
+        if (!makeSquare) {
+            try {
+                const h = divRef.current.offsetWidth;
+                setHeight(h);
+                setMakeSquare(true);
+            } catch (error) { console.log(error)}
+        }
+	}, [divRef.current, makeSquare]);
+   
 
     return (
 
