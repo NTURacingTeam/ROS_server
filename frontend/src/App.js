@@ -1,8 +1,8 @@
-import MainPage from "./container/MainPage";
+import MainPage from "./routes/MainPage";
 import NavBar from "./components/NavBar";
-import DataTable from "./container/DataTable"
-import GUI from "./container/GUI"
-import PlayGround from "./container/PlayGround";
+import DataTable from "./routes/DataTable"
+import GUI from "./routes/GUI"
+import PlayGround from "./routes/PlayGround";
 // import SignIn from "./components/SigninExample"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
