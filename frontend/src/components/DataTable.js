@@ -75,7 +75,10 @@ const DataTable = () => {
 	let [rear_left_tyre_temperature_2, setRear_left_tyre_temperature_2] = useState(0)
 	let [rear_right_tyre_temperature_1, setRear_right_tyre_temperature_1] = useState(0)
 	let [rear_right_tyre_temperature_2, setRear_right_tyre_temperature_2] = useState(0)
-				
+	let [GPS_lon, setGPS_lon] = useState(0)
+	let [GPS_lat, setGPS_lat] = useState(0)
+	
+	
 	const rows = [
 		// front_box_1
 		{name: "front_left_wheel_speed", value: front_left_wheel_speed, update: setFront_left_wheel_speed},
@@ -116,7 +119,9 @@ const DataTable = () => {
 		{name: "rear_left_tyre_temperature_1", value: rear_left_tyre_temperature_1, update: setRear_left_tyre_temperature_1},
 		{name: "rear_left_tyre_temperature_2", value: rear_left_tyre_temperature_2, update: setRear_left_tyre_temperature_2},
 		{name: "rear_right_tyre_temperature_1", value: rear_right_tyre_temperature_1, update: setRear_right_tyre_temperature_1},
-		{name: "rear_right_tyre_temperature_2", value: rear_right_tyre_temperature_2, update: setRear_right_tyre_temperature_2}
+		{name: "rear_right_tyre_temperature_2", value: rear_right_tyre_temperature_2, update: setRear_right_tyre_temperature_2},
+		{name: "GPS_lon", value: GPS_lon, update: setGPS_lon},
+		{name: "GPS_lat", value: GPS_lat, update: setGPS_lat},
 	];
 
 	useEffect(() => {
