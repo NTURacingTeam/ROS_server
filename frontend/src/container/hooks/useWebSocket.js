@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, createContext, useContext } from 'react';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import useWebSocketOrigin, { ReadyState } from 'react-use-websocket';
 
 const WebSocketContext = createContext({
 	socketUrl: "",
@@ -21,7 +21,7 @@ const WebSocketProvider = (props) => {
 			lastJsonMessage,
 			readyState,
 			getWebSocket,
-		  } = useWebSocket(socketUrl);
+		  } = useWebSocketOrigin(socketUrl);
 
 	const message = JSON.stringify({name: "acceleration_1", value: 127}) 
 
@@ -45,6 +45,6 @@ const WebSocketProvider = (props) => {
 	);
 };
 
-const WebSocketState = () => useContext(WebSocketContext) ;
+const useWebSocket = () => useContext(WebSocketContext) ;
 
-export {WebSocketState, WebSocketProvider}
+export { useWebSocket, WebSocketProvider}
