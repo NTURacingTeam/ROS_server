@@ -14,48 +14,57 @@ const FramesContext = createContext({
 });
 
 const FramesProvider = (props) => {
-    let [front_left_wheel_speed, setFront_left_wheel_speed] = useState(0)
-	let [front_right_wheel_speed, setFront_right_wheel_speed] = useState(0)
-	let [front_left_tyre_temperature_1, setFront_left_tyre_temperature_1] = useState(0)
-	let [front_left_tyre_temperature_2, setFront_left_tyre_temperature_2] = useState(0)
-	let [front_right_tyre_temperature_1, setFront_right_tyre_temperature_1] = useState(0)
-	let [front_right_tyre_temperature_2, setFront_right_tyre_temperature_2] = useState(0)
+    const [front_left_wheel_speed, setFront_left_wheel_speed] = useState(0)
+	const [front_right_wheel_speed, setFront_right_wheel_speed] = useState(0)
+	const [front_left_tyre_temperature_1, setFront_left_tyre_temperature_1] = useState(0)
+	const [front_left_tyre_temperature_2, setFront_left_tyre_temperature_2] = useState(0)
+	const [front_right_tyre_temperature_1, setFront_right_tyre_temperature_1] = useState(0)
+	const [front_right_tyre_temperature_2, setFront_right_tyre_temperature_2] = useState(0)
 	// front_box_2
-	let [brake, setBrake] = useState(0)
-	let [accelerator_1, setAccelerator_1] = useState(0)
-	let [accelerator_2, setAccelerator_2] = useState(0)
-	let [steer_angle, setSteer_angle] = useState(0)
-	let [oil_pressure, setOil_pressure] = useState(0)
-	let [accelerator_micro, setAccelerator_micro] = useState(0)
-	let [brake_micro, setBrake_micro] = useState(0)
+	const [brake, setBrake] = useState(0)
+	const [accelerator_1, setAccelerator_1] = useState(0)
+	const [accelerator_2, setAccelerator_2] = useState(0)
+	const [steer_angle, setSteer_angle] = useState(0)
+	const [oil_pressure, setOil_pressure] = useState(0)
+	const [accelerator_micro, setAccelerator_micro] = useState(0)
+	const [brake_micro, setBrake_micro] = useState(0)
 	// imu_acceleration
-	let [imu_acceleration_x, setImu_acceleration_x] = useState(0)
-	let [imu_acceleration_y, setImu_acceleration_y] = useState(0)
-	let [imu_acceleration_z, setImu_acceleration_z] = useState(0)
+	const [imu_acceleration_x, setImu_acceleration_x] = useState(0)
+	const [imu_acceleration_y, setImu_acceleration_y] = useState(0)
+	const [imu_acceleration_z, setImu_acceleration_z] = useState(0)
 	// imu_gyro
-	let [imu_gyro_x, setImu_gyro_x] = useState(0)
-	let [imu_gyro_y, setImu_gyro_y] = useState(0)
-	let [imu_gyro_z, setImu_gyro_z] = useState(0)
+	const [imu_gyro_x, setImu_gyro_x] = useState(0)
+	const [imu_gyro_y, setImu_gyro_y] = useState(0)
+	const [imu_gyro_z, setImu_gyro_z] = useState(0)
 	// imu_quaternion
-	let [imu_quaternion_w, setImu_quaternion_w] = useState(0)
-	let [imu_quaternion_x, setImu_quaternion_x] = useState(0)
-	let [imu_quaternion_y, setImu_quaternion_y] = useState(0)
-	let [imu_quaternion_z, setImu_quaternion_z] = useState(0)
+	const [imu_quaternion_w, setImu_quaternion_w] = useState(0)
+	const [imu_quaternion_x, setImu_quaternion_x] = useState(0)
+	const [imu_quaternion_y, setImu_quaternion_y] = useState(0)
+	const [imu_quaternion_z, setImu_quaternion_z] = useState(0)
 	// muc_data
-	let [control_board_temperature, setControl_board_temperature] = useState(0)
-	let [motor_temperature, setMotor_temperature] = useState(0)
-	let [motor_speed, setMotor_speed] = useState(0)
-	let [input_voltage, setInput_voltage] = useState(0)
+	const [control_board_temperature, setControl_board_temperature] = useState(0)
+	const [motor_temperature, setMotor_temperature] = useState(0)
+	const [motor_speed, setMotor_speed] = useState(0)
+	const [input_voltage, setInput_voltage] = useState(0)
 	// rear_box_1
-	let [rear_left_wheel_speed, setRear_left_wheel_speed] = useState(0)
-	let [rear_right_wheel_speed, setRear_right_wheel_speed] = useState(0)
-	let [rear_left_tyre_temperature_1, setRear_left_tyre_temperature_1] = useState(0)
-	let [rear_left_tyre_temperature_2, setRear_left_tyre_temperature_2] = useState(0)
-	let [rear_right_tyre_temperature_1, setRear_right_tyre_temperature_1] = useState(0)
-	let [rear_right_tyre_temperature_2, setRear_right_tyre_temperature_2] = useState(0)
-	let [GPS_lon, setGPS_lon] = useState(0)
-	let [GPS_lat, setGPS_lat] = useState(0)
-	
+	const [rear_left_wheel_speed, setRear_left_wheel_speed] = useState(0)
+	const [rear_right_wheel_speed, setRear_right_wheel_speed] = useState(0)
+	const [rear_left_tyre_temperature_1, setRear_left_tyre_temperature_1] = useState(0)
+	const [rear_left_tyre_temperature_2, setRear_left_tyre_temperature_2] = useState(0)
+	const [rear_right_tyre_temperature_1, setRear_right_tyre_temperature_1] = useState(0)
+	const [rear_right_tyre_temperature_2, setRear_right_tyre_temperature_2] = useState(0)
+	const [GPS_lon, setGPS_lon] = useState(0)
+	const [GPS_lat, setGPS_lat] = useState(0)
+
+    // torque controller
+    const [is_activated, setIs_activated] = useState(0)
+    const [apps_error, setApps_error] = useState(0)
+    const [bse_error, setBse_error] = useState(0)
+    const [bppc_error, setBppc_error] = useState(0)
+    const [inverter_enable, setInverter_enable] = useState(0)
+    const [direction_command, setDirection_command] = useState(0)
+    const [torque_command, setTorque_command] = useState(0)
+
 	const rows = {
 		// front_box_1
 		"front_left_wheel_speed": { 
@@ -274,7 +283,49 @@ const FramesProvider = (props) => {
             min: -180, max: 180,
             catagory: "GPS"
         },
-	};
+        "is_activated":{
+            value: is_activated,
+            update: setIs_activated,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+        "apps_error":{
+            value: apps_error,
+            update: setApps_error,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+        "bse_error":{
+            value: bse_error,
+            update: setBse_error,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+        "bppc_error":{
+            value: bppc_error,
+            update: setBppc_error,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+        "inverter_enable":{
+            value: inverter_enable,
+            update: setInverter_enable,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+        "direction_command":{
+            value: direction_command,
+            update: setDirection_command,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+        "torque_command":{
+            value: torque_command,
+            update: setTorque_command,
+            min:0, max: 1,
+            catagory: "Torque"
+        },
+};
 
     const GUI = {
         GPS: GPS,
