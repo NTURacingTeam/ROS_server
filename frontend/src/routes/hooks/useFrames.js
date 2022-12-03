@@ -10,7 +10,8 @@ import Wheel from "../../components/GUI/Wheel"
 
 const FramesContext = createContext({
     rows: {},
-    GUI: {}
+    GUI: {},
+    batchUpdate: () => {}
 });
 
 const FramesProvider = (props) => {
@@ -325,7 +326,15 @@ const FramesProvider = (props) => {
             min:0, max: 1,
             catagory: "Torque"
         },
-};
+    };
+
+    const batchUpdate = (batch) => {
+        Object.entries(rows).forEach(([key, ele]) => {
+            if (batch.hasOwnProperty(key)) {
+                ele.update(batch[key])
+            }
+        })
+    }
 
     const GUI = {
         GPS: GPS,
@@ -339,7 +348,7 @@ const FramesProvider = (props) => {
 
     return (
         <FramesContext.Provider
-			value={{rows, GUI}}
+			value={{rows, GUI, batchUpdate}}
 			{...props}
 		/>
     )

@@ -34,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const DataTable = () => {
 	const {socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage} = useWebSocket() ;
-	const { rows } = useFrames();
+	const { rows, batchUpdate } = useFrames();
 
 
 	useEffect(() => {
@@ -42,11 +42,12 @@ const DataTable = () => {
 		try {
 			if (lastJsonMessage.hasOwnProperty("batch")) {
 				// console.log("recieve message: ", lastJsonMessage)
-				Object.entries(rows).forEach(([key, ele]) => {
-					if (lastJsonMessage.batch.hasOwnProperty(key)) {
-						ele.update(lastJsonMessage.batch[key])
-					}
-				})
+				// Object.entries(rows).forEach(([key, ele]) => {
+				// 	if (lastJsonMessage.batch.hasOwnProperty(key)) {
+				// 		ele.update(lastJsonMessage.batch[key])
+				// 	}
+				// })
+				batchUpdate(lastJsonMessage.batch);
 			} else { // the old way of tranfering datas
 				Object.entries(rows).forEach(([key, ele]) => {
 					// console.log(ele.name)
