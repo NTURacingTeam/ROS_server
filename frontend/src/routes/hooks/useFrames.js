@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, createContext, useContext } from 'react'
 
 import GPS from "../../components/GUI/GPS"
 import IMU from "../../components/GUI/IMU"
@@ -8,7 +8,12 @@ import Pedal from "../../components/GUI/Pedal"
 import Steer from "../../components/GUI/Steer"
 import Wheel from "../../components/GUI/Wheel"
 
-const useFrames = () => {
+const FramesContext = createContext({
+    rows: {},
+    GUI: {}
+});
+
+const FramesProvider = (props) => {
     let [front_left_wheel_speed, setFront_left_wheel_speed] = useState(0)
 	let [front_right_wheel_speed, setFront_right_wheel_speed] = useState(0)
 	let [front_left_tyre_temperature_1, setFront_left_tyre_temperature_1] = useState(0)
@@ -281,9 +286,14 @@ const useFrames = () => {
         Wheel: Wheel,
     }
 
-    return {
-        rows, GUI
-    }
+    return (
+        <FramesContext.Provider
+			value={{rows, GUI}}
+			{...props}
+		/>
+    )
 }
 
-export { useFrames }
+const useFrames = () => useContext(FramesContext);
+
+export { useFrames, FramesProvider }

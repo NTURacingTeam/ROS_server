@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, createContext, useContext } from 'react';
+import React, { useState, useCallback, createContext, useContext } from 'react';
 import useWebSocketOrigin, { ReadyState } from 'react-use-websocket';
 
 const WebSocketContext = createContext({
