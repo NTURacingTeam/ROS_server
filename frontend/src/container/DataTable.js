@@ -8,7 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { Slider } from 'antd'
 
 import { useWebSocket } from './hooks/useWebSocket';
 import { useFrames } from './hooks/useFrames';
@@ -68,12 +67,12 @@ const DataTable = () => {
 			{/* {lastMessage ? <span>Last message: {lastMessage.data}</span> : null} */}
 
 			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 400 }} aria-label="simple table">
+				<Table sx={{ minWidth: 400, maxWidth: 700 }} aria-label="simple table">
 					<TableHead>
 						<TableRow>
 							<TableCell>Data Name</TableCell>
 							<TableCell align="right">Data Value</TableCell>
-							<TableCell align="right">Data Slide Bar</TableCell>
+							<TableCell align="right">Data GUI catagory</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -87,15 +86,7 @@ const DataTable = () => {
 									{key}
 								</StyledTableCell>
 								<StyledTableCell align="right">{row.value}</StyledTableCell>
-								<StyledTableCell align="right" sx={{ minWidth: 100}}>
-									<Slider 
-										value={row.value} 
-										defaultValue={0} 
-										disabled={true} 
-										min={row.min}
-										max={row.max}
-									/> 
-								</StyledTableCell>
+								<StyledTableCell align="right">{row.catagory}</StyledTableCell>
 							</StyledTableRow>
 						})}
 					</TableBody>
