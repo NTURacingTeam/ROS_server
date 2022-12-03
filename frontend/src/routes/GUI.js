@@ -7,7 +7,7 @@ import { useWebSocket } from './hooks/useWebSocket';
 
 const StyledRow = styled(Row)`
 	.ant-col {
-		// padding: 0;
+		// padding: 1em;
 	}
 `
 

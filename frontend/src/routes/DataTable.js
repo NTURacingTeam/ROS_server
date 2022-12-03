@@ -73,7 +73,9 @@ const DataTable = () => {
 						<TableRow>
 							<TableCell>Data Name</TableCell>
 							<TableCell align="right">Data Value</TableCell>
-							<TableCell align="right">Data GUI catagory</TableCell>
+							<TableCell align="right">GUI catagory</TableCell>
+							<TableCell align="right">min</TableCell>
+							<TableCell align="right">max</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -88,6 +90,8 @@ const DataTable = () => {
 								</StyledTableCell>
 								<StyledTableCell align="right">{row.value}</StyledTableCell>
 								<StyledTableCell align="right">{row.catagory}</StyledTableCell>
+								<StyledTableCell align="right">{row.min}</StyledTableCell>
+								<StyledTableCell align="right">{row.max}</StyledTableCell>
 							</StyledTableRow>
 						})}
 					</TableBody>

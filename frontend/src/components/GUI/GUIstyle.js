@@ -6,8 +6,9 @@ import styled from 'styled-components'
 const StyledCol = styled(Col)`
     background: transparent;
     border: 0;
+    padding: 0;
 
-    div {
+    > div {
         // height: 60px;
 		font-size: 14px;
 		// line-height: 120px;
@@ -15,9 +16,20 @@ const StyledCol = styled(Col)`
 		border-radius: 4px;
 		color: white;
 		text-align: center;
-
-    }
+        margin: 0;
+        padding: 0.3em;
+    } 
 `
+
+const StyledTitle = styled.h1`
+    margin: 0;
+    padding: 0.25em 0;
+`
+
+const StyledChildren = styled.div`
+
+`
+
 export default ({title, rows, columns, baseCol, children}) => {
     const divRef = useRef(null);
     const [height, setHeight] = useState(100);
@@ -37,9 +49,11 @@ export default ({title, rows, columns, baseCol, children}) => {
     return (
 
     <StyledCol span={baseCol * rows} > 
-        <div ref={divRef} style={{height: height}}> 
-            <h1>{title}</h1>
-            {children}
+        <div> 
+            <StyledTitle>{title}</StyledTitle>
+            <StyledChildren ref={divRef} style={{height: height}}>
+                {children}
+            </StyledChildren>
         </div> 
     </StyledCol>
 )}
