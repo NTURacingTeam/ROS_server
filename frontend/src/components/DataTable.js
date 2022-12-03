@@ -128,7 +128,7 @@ const DataTable = () => {
 		// console.log("use Effect")
 		try {
 			if (lastJsonMessage.hasOwnProperty("batch")) {
-				console.log("recieve message: ", lastJsonMessage)
+				// console.log("recieve message: ", lastJsonMessage)
 				rows.forEach((ele) => {
 					if (lastJsonMessage.batch.hasOwnProperty(ele.name)) {
 						ele.update(lastJsonMessage.batch[ele.name])
