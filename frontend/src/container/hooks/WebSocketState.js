@@ -1,7 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, createContext, useContext } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 
-const WebSocketState = () => {
+const WebSocketContext = createContext({
+	socketUrl: "",
+	sendMessage: () => {},
+	connectionStatus: "",
+	readyState: 0,
+	lastJsonMessage: {},
+	lastMessage: "",
+	sendMessage: () => {}, 
+	sendJsonMessage: () => {}
+})
+
+const WebSocketProvider = (props) => {
 	const [socketUrl, setSocketUrl] = useState('ws://124.218.222.22:8080');
 
 	const { sendMessage,
@@ -24,9 +35,16 @@ const WebSocketState = () => {
 			[ReadyState.UNINSTANTIATED]: 'Uninstantiated',
 		}[readyState];
 	
-	return (
-		{socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage, sendMessage, sendJsonMessage}
-	)
-}
 
-export default WebSocketState
+	return (
+		<WebSocketContext.Provider
+			value={{socketUrl, sendMessage, connectionStatus, 
+			readyState, lastJsonMessage, lastMessage, sendMessage, sendJsonMessage}}
+			{...props}
+		/>
+	);
+};
+
+const WebSocketState = () => useContext(WebSocketContext) ;
+
+export {WebSocketState, WebSocketProvider}
