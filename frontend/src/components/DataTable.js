@@ -121,20 +121,28 @@ const DataTable = () => {
 
 	useEffect(() => {
 		// console.log("use Effect")
-		// console.log(lastJsonMessage)
 		try {
-			rows.forEach((ele) => {
-				// console.log(ele.name)
-				if (ele.name === lastJsonMessage.name) {
-					// console.log("match: ", ele.name)
-					// console.log()
-					ele.update(lastJsonMessage.value)
-				}
-			})
+			if (lastJsonMessage.hasOwnProperty("batch")) {
+				console.log("recieve message: ", lastJsonMessage)
+				rows.forEach((ele) => {
+					if (lastJsonMessage.batch.hasOwnProperty(ele.name)) {
+						ele.update(lastJsonMessage.batch[ele.name])
+					}
+				})
+			} else {
+				rows.forEach((ele) => {
+					// console.log(ele.name)
+					if (ele.name === lastJsonMessage.name) {
+						// console.log("match: ", ele.name)
+						// console.log()
+						ele.update(lastJsonMessage.value)
+					}
+				})
+			}
 		} catch (error) {console.log(error)};
-	})
+	}, [lastJsonMessage])
 	
-	console.log("status: ", connectionStatus);
+	// console.log("status: ", connectionStatus);
 	return (
 		<div>
 			<span>The WebSocket is currently {connectionStatus}, websocket url is : {socketUrl}.  </span>
