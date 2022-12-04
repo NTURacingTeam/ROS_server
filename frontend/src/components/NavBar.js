@@ -73,6 +73,10 @@ const ResponsiveAppBar = (props) => {
     setAnchorElUser(null);
   };
 
+  const handleClickMenuItem = (page) => {
+    handleCloseNavMenu();
+    navigate(page.path);
+  }
   return (
     <>
 
@@ -112,11 +116,9 @@ const ResponsiveAppBar = (props) => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.name} onClick={() => {handleClickMenuItem(page)}}>
                   <Typography textAlign="center">
-                    <NavLink to={page.path} sx={{color: "primary.main"}}>
                         {page.name}
-                    </NavLink>
                     </Typography>
                 </MenuItem>
               ))}
