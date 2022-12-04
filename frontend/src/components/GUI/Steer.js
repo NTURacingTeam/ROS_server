@@ -6,42 +6,39 @@ import {ReactComponent as SteerIcon} from "../img/steer.svg"
     //transform: rotate(${props => props.angle}}deg);
     //transform: rotate(180deg);
 const StyledRotate = styled.div`
+    padding: 5rem;
     transform: rotate(${
         props => {
-            console.log('onStart:', props.angle);
             return props.angle;
         }
     }deg);
 `
+const Description = styled.div`
+    position: absolute;
+    transform: translate(50%, 0);
+    top: 50%;
+    right: 50%;
+    background: rgba(255, 0, 0, 0.7);
+    border-radius: 0.3em;
+    width: 4em;
+    padding: 1em;
+    font-size: 1.4em;
+`
 export default ({ baseCol}) => {
 
     const { rows } = useFrames();
-    const Wheel = () => {  
-        return (
-            <div id="wheel">
-            <div id="wheel_b">
-                <div id="wheel_c">
-                    <div id="wheel_d"></div>
-                    <div id="beep"></div>
-                </div>
-            </div>
-        </div>
-        )
-    }
-
-    console.log("steer_angle: " + rows.steer_angle.value)
 
     const dataRow = [
         "steer_angle"
     ]
     return (
         <GUIstyle title={"Steer"} rows={1} columns={1} baseCol={baseCol}>
-            {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
-            ))}
             <StyledRotate angle={rows.steer_angle.value}>
                 <SteerIcon />
             </StyledRotate>
+            <Description>
+                {rows.steer_angle.value}
+            </Description>
         </GUIstyle>
     )
 }
