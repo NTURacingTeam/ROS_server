@@ -1,17 +1,7 @@
 import { useState, createContext, useContext } from 'react'
 
-import GPS from "../../components/GUI/GPS"
-import IMU from "../../components/GUI/IMU"
-import Motor from "../../components/GUI/Motor"
-import Other from "../../components/GUI/Other"
-import Pedal from "../../components/GUI/Pedal"
-import Steer from "../../components/GUI/Steer"
-import Wheel from "../../components/GUI/Wheel"
-import Torque from "../../components/GUI/Torque"
-
 const FramesContext = createContext({
     rows: {},
-    GUI: {},
     batchUpdate: () => {}
 });
 
@@ -337,20 +327,9 @@ const FramesProvider = (props) => {
         })
     }
 
-    const GUI = {
-        GPS: GPS,
-        IMU: IMU,
-        Motor: Motor,
-        Other: Other,
-        Pedal: Pedal,
-        Steer: Steer,
-        Wheel: Wheel,
-        Torque: Torque
-    }
-
     return (
         <FramesContext.Provider
-			value={{rows, GUI, batchUpdate}}
+			value={{rows, batchUpdate}}
 			{...props}
 		/>
     )

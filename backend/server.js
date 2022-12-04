@@ -12,7 +12,7 @@ ws_server.on('connection', function(socket) {
     console.log("sockets length: ", sockets.length);
     socket.on('message', function(msg) {
         try {
-            var json_data =     JSON.parse(msg);
+            var json_data = JSON.parse(msg);
             console.log("racieved message: ", json_data);
         } catch(error) {
             console.log("not json");
