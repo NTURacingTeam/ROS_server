@@ -18,6 +18,7 @@ import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
 
 import blackLogo from "./img/black.jpg"
+import bar from "./img/bar.png"
 import styled from 'styled-components'
 
 
@@ -130,18 +131,23 @@ const ResponsiveAppBar = (props) => {
             </Menu>
           </Box>
           
-          <Img src={blackLogo}></Img>
+          <Img src={bar}
+            onClick = {() => {navigate("/")}}
+            style={{height:"5em", cursor: "pointer"}}
+          ></Img>
+          
           <Typography
             variant="h5"
             noWrap
             component="a"
             // href=""
-            onClick={() => { navigate("/"); }}
+            src={bar}
+            onClick={() => { navigate("/GUI"); }}
             sx={{
+              fontSize: "3rem",
               mr: 2,
               display: 'flex',
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -149,7 +155,7 @@ const ResponsiveAppBar = (props) => {
             }}
             style={{cursor: "pointer"}}
           >
-            NTU Racing Team
+            GUI Remote Moniter
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
