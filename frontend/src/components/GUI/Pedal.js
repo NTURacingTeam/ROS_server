@@ -88,7 +88,7 @@ const MicroIndicator = styled.div`
 
 `
 
-export default ({ baseCol, lastJsonMessage}) => {
+export default ({ baseCol }) => {
 
     const { rows } = useFrames();
     const breakRef = useRef(null);

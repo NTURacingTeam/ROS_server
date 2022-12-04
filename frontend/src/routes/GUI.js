@@ -4,6 +4,17 @@ import styled from 'styled-components'
 import { Row } from 'antd';
 import { useWebSocket } from './hooks/useWebSocket';
 
+import GPS from "../components/GUI/GPS"
+import IMU from "../components/GUI/IMU"
+import Motor from "../components/GUI/Motor"
+import Other from "../components/GUI/Other"
+import Pedal from "../components/GUI/Pedal"
+import Steer from "../components/GUI/Steer"
+import Wheel from "../components/GUI/Wheel"
+import Torque from "../components/GUI/Torque"
+
+
+
 
 const StyledRow = styled(Row)`
 	.ant-col {
@@ -14,8 +25,7 @@ const StyledRow = styled(Row)`
 export default () => {
     const {socketUrl, connectionStatus, readyState, lastJsonMessage} = useWebSocket() ;
 
-    const { GUI, batchUpdate } = useFrames();
-    const { GPS, IMU, Motor, Other, Pedal, Steer, Wheel, Torque } = GUI;
+    const { batchUpdate } = useFrames();
     const [baseCol, setbaseCol] = useState(8);
     
     useEffect(() => {
@@ -32,14 +42,14 @@ export default () => {
         <div>
             <h1>GUI page</h1><p>base column: {baseCol}/24</p>
             <StyledRow gutter={[24, 24]}>
-                <Pedal baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <Motor baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <Steer baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <Torque baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <Wheel baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <IMU baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <GPS baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
-                <Other baseCol={baseCol} lastJsonMessage={lastJsonMessage}/>
+                <Pedal baseCol={baseCol} />
+                <Motor baseCol={baseCol} />
+                <Steer baseCol={baseCol} />
+                <Torque baseCol={baseCol} />
+                <Wheel baseCol={baseCol} />
+                <IMU baseCol={baseCol} />
+                <GPS baseCol={baseCol} />
+                <Other baseCol={baseCol} />
             </StyledRow>
         </div>
     )

@@ -13,7 +13,7 @@ const StyledRotate = styled.div`
         }
     }deg);
 `
-export default ({ baseCol, lastJsonMessage}) => {
+export default ({ baseCol}) => {
 
     const { rows } = useFrames();
     const Wheel = () => {  
