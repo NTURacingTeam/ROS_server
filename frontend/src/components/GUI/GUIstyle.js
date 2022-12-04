@@ -10,14 +10,14 @@ const StyledCol = styled(Col)`
 
     > div {
         // height: 60px;
-		font-size: 14px;
+		font-size: 1.4rem;
 		// line-height: 120px;
 		background: #0092ff;
-		border-radius: 4px;
+		border-radius: 1rem;
 		color: white;
 		text-align: center;
         margin: 0;
-        padding: 0.3em;
+        padding: 0.1rem;
     } 
 `
 
