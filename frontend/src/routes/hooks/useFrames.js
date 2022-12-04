@@ -62,13 +62,13 @@ const FramesProvider = (props) => {
 		"front_left_wheel_speed": { 
             value: front_left_wheel_speed, 
             update: setFront_left_wheel_speed,
-            min: 0, max: 1,
+            min: 0, max: 110,
             catagory: "Wheel"
         },
 		"front_right_wheel_speed": { 
             value: front_right_wheel_speed, 
             update: setFront_right_wheel_speed,
-            min: 0, max: 1,
+            min: 0, max: 110,
             catagory: "Wheel"
         },
 		"front_left_tyre_temperature_1": { 
@@ -99,31 +99,31 @@ const FramesProvider = (props) => {
 		"brake": { 
             value: brake, 
             update: setBrake,
-            min: 0, max: 256,
+            min: 0, max: 255,
             catagory: "Pedal"
         },
 		"accelerator_1": { 
             value: accelerator_1, 
             update: setAccelerator_1,
-            min: 0, max: 256,
+            min: 0, max: 255,
             catagory: "Pedal"
         },
 		"accelerator_2": { 
             value: accelerator_2, 
             update: setAccelerator_2,
-            min: 0, max: 256,
+            min: 0, max: 255,
             catagory: "Pedal"
         },
 		"steer_angle": { 
             value: steer_angle, 
             update: setSteer_angle,
-            min: 0, max: 512,
+            min: -90, max: 90,
             catagory: "Steer"
         },
 		"oil_pressure": { 
             value: oil_pressure, 
             update: setOil_pressure,
-            min: 0, max: 4086,
+            min: 0, max: 30,
             catagory: "Other"
         },
 		"accelerator_micro": { 
@@ -142,101 +142,101 @@ const FramesProvider = (props) => {
 		"imu_acceleration_x": { 
             value: imu_acceleration_x, 
             update: setImu_acceleration_x,
-            min: 0, max: 2.5,
+            min: -10, max: 10,
             catagory: "IMU"
         },
 		"imu_acceleration_y": { 
             value: imu_acceleration_y, 
             update: setImu_acceleration_y,
-            min: 0, max: 2.5,
+            min: -10, max: 10,
             catagory: "IMU"
         },
 		"imu_acceleration_z": { 
             value: imu_acceleration_z, 
             update: setImu_acceleration_z,
-            min: 0, max: 2.5,
+            min: -10, max: 10,
             catagory: "IMU"
         },
 		// imu_gyro
 		"imu_gyro_x": { 
             value: imu_gyro_x, 
             update: setImu_gyro_x,
-            min: 0, max: 0.5,
+            min: -4, max: 4,
             catagory: "IMU"
         },
 		"imu_gyro_y": { 
             value: imu_gyro_y, 
             update: setImu_gyro_y,
-            min: 0, max: 0.5,
+            min: -4, max: 4,
             catagory: "IMU"
         },
 		"imu_gyro_z": { 
             value: imu_gyro_z, 
             update: setImu_gyro_z,
-            min: 0, max: 0.5,
+            min: -4, max: 4,
             catagory: "IMU"
         },
 		// imu_quaternion
 		"imu_quaternion_w": { 
             value: imu_quaternion_w, 
             update: setImu_quaternion_w,
-            min: 0, max: 0.00256,
+            min: -1, max: 1,
             catagory: "IMU"
         },
 		"imu_quaternion_x": { 
             value: imu_quaternion_x, 
             update: setImu_quaternion_x,
-            min: 0, max: 0.00256,
+            min: -1, max: 1,
             catagory: "IMU"
         },
 		"imu_quaternion_y": { 
             value: imu_quaternion_y, 
             update: setImu_quaternion_y,
-            min: 0, max: 0.00256,
+            min: -1, max: 1,
             catagory: "IMU"
         },
 		"imu_quaternion_z": { 
             value: imu_quaternion_z, 
             update: setImu_quaternion_z,
-            min: 0, max: 100,
+            min: -1, max: 1,
             catagory: "IMU"
         },
 		// muc_data
 		"control_board_temperature": { 
             value: control_board_temperature, 
             update: setControl_board_temperature,
-            min: 0, max: 25.6,
+            min: 0, max: 100,
             catagory: "Motor"
         },
 		"motor_temperature": { 
             value: motor_temperature, 
             update: setMotor_temperature,
-            min: 0, max: 25.6,
+            min: 0, max: 100,
             catagory: "Motor"
         },
 		"motor_speed": { 
             value: motor_speed, 
             update: setMotor_speed,
-            min: 0, max: 256,
+            min: 0, max: 500,
             catagory: "Motor"
         },
 		"input_voltage": { 
             value: input_voltage, 
             update: setInput_voltage,
-            min: 0, max: 25.6,
+            min: 0, max: 600,
             catagory: "Motor"
         },
 		// rear_box_1
 		"rear_left_wheel_speed": { 
             value: rear_left_wheel_speed, 
             update: setRear_left_wheel_speed,
-            min: 0, max: 1,
+            min: 0, max: 110,
             catagory: "Wheel"
         },
 		"rear_right_wheel_speed": { 
             value: rear_right_wheel_speed, 
             update: setRear_right_wheel_speed,
-            min: 0, max: 1,
+            min: 0, max: 110,
             catagory: "Wheel"
         },
 		"rear_left_tyre_temperature_1": { 
@@ -314,7 +314,7 @@ const FramesProvider = (props) => {
         "torque_command":{
             value: torque_command,
             update: setTorque_command,
-            min:0, max: 1,
+            min:0, max: 134,
             catagory: "Torque"
         },
     };
