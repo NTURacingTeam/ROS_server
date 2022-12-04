@@ -1,7 +1,7 @@
 import GUIstyle from "./GUIstyle"
 import { useFrames } from "../../routes/hooks/useFrames"
 
-export default ({ baseCol, lastJsonMessage}) => {
+export default ({ baseCol }) => {
 
     const { rows } = useFrames();
     const dataRow = [
