@@ -11,14 +11,19 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { NavLink, useNavigate } from 'react-router-dom'
 
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
 
+import blackLogo from "./img/black.jpg"
+import styled from 'styled-components'
 
+
+const Img = styled.img`
+    height: 2em;
+`
 
 const HideOnScroll = (props) => {
     const { children, window } = props;
@@ -125,7 +130,7 @@ const ResponsiveAppBar = (props) => {
             </Menu>
           </Box>
           
-          <AdbIcon sx={{ display: 'flex', mr: 1 }} />
+          <Img src={blackLogo}></Img>
           <Typography
             variant="h5"
             noWrap
