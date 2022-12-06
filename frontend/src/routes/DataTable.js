@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 // import TableCell from '@mui/material/TableCell';
@@ -11,6 +11,9 @@ import { styled } from '@mui/material/styles';
 
 import { useWebSocket } from './hooks/useWebSocket';
 import { useFrames } from './hooks/useFrames';
+// reorder by drag and drop
+import {useState} from 'react'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -35,7 +38,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const DataTable = () => {
 	const {socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage} = useWebSocket() ;
 	const { rows, batchUpdate } = useFrames();
-
+	const [cell, updateCell] = useState();
+	const [orderedRows, updateOrderRows] = useState(rows)
 
 	useEffect(() => {
 		// console.log("use Effect")
@@ -61,16 +65,36 @@ const DataTable = () => {
 		} catch (error) {console.log(error)};
 	}, [lastJsonMessage])
 	
+	const handleOnDragEnd = (result) => {
+		console.log("on drag end")
+		const items = Object.entries(orderedRows);
+		console.log(rows)
+		console.log(orderedRows)
+		console.log(items)
+		const [reorderedItem] = items.splice(result.source.index, 1);
+		items.splice(result.destination.index, 0, reorderedItem);
+		console.log("new")
+		let itemsObj = {}
+		for (let i=0; i<items.length; i++) {
+			itemsObj[items[i][0]] = items[i][1]
+		}
+		console.log(itemsObj)
+		updateOrderRows(itemsObj);
+
+	}
 	// console.log("status: ", connectionStatus);
 	return (
 		<div>
+			<br></br>
+			<br></br>
 			<span>The WebSocket is currently {connectionStatus}, websocket url is : {socketUrl}.  </span>
 			{/* {lastMessage ? <span>Last message: {lastMessage.data}</span> : null} */}
 
 			<TableContainer component={Paper}>
+				<DragDropContext onDragEnd={(result) => handleOnDragEnd(result)}>
 				<Table sx={{ minWidth: 400, maxWidth: 700 }} aria-label="simple table">
 					<TableHead>
-						<TableRow>
+						<TableRow >
 							<TableCell>Data Name</TableCell>
 							<TableCell align="right">Data Value</TableCell>
 							<TableCell align="right">GUI catagory</TableCell>
@@ -78,25 +102,40 @@ const DataTable = () => {
 							<TableCell align="right">max</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody>
-					
-						{Object.entries(rows).map(([key, row]) => {
-							return <StyledTableRow
-								key={key}
-								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-							>
-								<StyledTableCell component="th" scope="row">
-									{key}
-								</StyledTableCell>
-								<StyledTableCell align="right">{row.value}</StyledTableCell>
-								<StyledTableCell align="right">{row.catagory}</StyledTableCell>
-								<StyledTableCell align="right">{row.min}</StyledTableCell>
-								<StyledTableCell align="right">{row.max}</StyledTableCell>
-							</StyledTableRow>
+				<Droppable droppableId='drap-1'>
+				{(provided, snapshot) => (
+					<TableBody ref={provided.innerRef} {...provided.droppableProps}>
+						{provided.placeholder}
+						{Object.entries(orderedRows).map(([key, row], index) => {
+							return (
+								<Draggable key={key} draggableId={key} index={index}>
+								{(provided) => (
+								<StyledTableRow
+									key={key}
+									ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
+									sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+								>
+									<StyledTableCell component="th" scope="row"
+									>
+										{key}
+									</StyledTableCell>
+										<>
+										<StyledTableCell align="right" >{row.value}</StyledTableCell>
+										<StyledTableCell align="right" >{row.catagory}</StyledTableCell>
+										<StyledTableCell align="right" >{row.min}</StyledTableCell>
+										<StyledTableCell align="right" >{row.max}</StyledTableCell>
+										</>
+								</StyledTableRow>
+								)}
+								</Draggable>
+							)
 						})}
 					</TableBody>
+					)}
+				</Droppable>
 				</Table>
-			</TableContainer>
+		</DragDropContext>
+		</TableContainer>
 		</div>
 	)
 }
