@@ -1,0 +1,14 @@
+{
+    "short_name": "NTURT",
+    "name": "NTURT Remote Monitering Site",
+    "description": "NTURT Remote Monitering Site",
+    "icons": [
+        {
+            "src" : "icon.jpg",
+            "sizes": " 64x64 32x32 24x24 16x16",
+            "type": "image/svg"
+        }
+    ],
+    "display": "standalone",
+    "start_url": "."
+  }

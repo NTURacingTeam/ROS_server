@@ -1,10 +1,16 @@
 {
   "files": {
-    "main.js": "/ROS_server/static/js/main.0efad760.js",
+    "main.css": "/ROS_server/static/css/main.c56ab8bb.css",
+    "main.js": "/ROS_server/static/js/main.a1a83b1e.js",
+    "static/media/black.jpg": "/ROS_server/static/media/black.ee0dfc56e15dadc59f96.jpg",
+    "static/media/bar.png": "/ROS_server/static/media/bar.15028d381b857aa37174.png",
+    "static/media/steer.svg": "/ROS_server/static/media/steer.9460545129b25abfa6035ffbd407831a.svg",
     "index.html": "/ROS_server/index.html",
-    "main.0efad760.js.map": "/ROS_server/static/js/main.0efad760.js.map"
+    "main.c56ab8bb.css.map": "/ROS_server/static/css/main.c56ab8bb.css.map",
+    "main.a1a83b1e.js.map": "/ROS_server/static/js/main.a1a83b1e.js.map"
   },
   "entrypoints": [
-    "static/js/main.0efad760.js"
+    "static/css/main.c56ab8bb.css",
+    "static/js/main.a1a83b1e.js"
   ]
 }
