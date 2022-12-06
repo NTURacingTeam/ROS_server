@@ -90,7 +90,7 @@ const MicroIndicator = styled.div`
 
 export default ({ baseCol }) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
     const breakRef = useRef(null);
     const acc1Ref = useRef(null);
     const acc2Ref = useRef(null);
@@ -98,7 +98,7 @@ export default ({ baseCol }) => {
     const [distance2Bottom_acc1, setDistance2Bottom_acc1] = useState(0);
     const [distance2Bottom_acc2, setDistance2Bottom_acc2] = useState(0);
     const [fullHeight, setFullHeight] = useState(0);
-    const { brake, accelerator_1, accelerator_2 , accelerator_micro, brake_micro} = rows;
+    const { brake, accelerator_1, accelerator_2 , accelerator_micro, brake_micro} = frames;
     
 
     useEffect(() => {
@@ -117,7 +117,7 @@ export default ({ baseCol }) => {
         "brake_micro"
     ]
     return (
-        <GUIstyle title={"Pedal"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Pedal"} frames={1} columns={1} baseCol={baseCol}>
             <StyledPedal>
                 <PedalBarContainer>
                     <PedalSlider ref={breakRef} style={{background: "rgba(255, 255, 0, 0.6)"}}>

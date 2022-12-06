@@ -3,16 +3,16 @@ import { useFrames } from "../../routes/hooks/useFrames"
 
 export default ({ baseCol }) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
     const dataRow = [
         "GPS_lon",
         "GPS_lat"
     ]
     
     return (
-        <GUIstyle title={"GPS"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"GPS"} frames={1} columns={1} baseCol={baseCol}>
             {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
+                <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
         </GUIstyle>
     )

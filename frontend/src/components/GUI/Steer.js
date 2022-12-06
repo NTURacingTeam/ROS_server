@@ -26,18 +26,18 @@ const Description = styled.div`
 `
 export default ({ baseCol}) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
 
     const dataRow = [
         "steer_angle"
     ]
     return (
         <GUIstyle title={"Steer"} rows={1} columns={1} baseCol={baseCol}>
-            <StyledRotate angle={rows.steer_angle.value}>
+            <StyledRotate angle={frames.steer_angle.value}>
                 <SteerIcon />
             </StyledRotate>
             <Description>
-                {rows.steer_angle.value}
+                {frames.steer_angle.value}
             </Description>
         </GUIstyle>
     )

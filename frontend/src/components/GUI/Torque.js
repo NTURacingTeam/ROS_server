@@ -3,7 +3,7 @@ import { useFrames } from "../../routes/hooks/useFrames"
 
 export default ({ baseCol }) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
     const dataRow = [
         "is_activated",
         "apps_error",
@@ -14,9 +14,9 @@ export default ({ baseCol }) => {
         "torque_command",
     ]
     return (
-        <GUIstyle title={"Torque"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Torque"} frames={1} columns={1} baseCol={baseCol}>
             {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
+                <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
         </GUIstyle>
     )
