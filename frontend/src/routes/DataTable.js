@@ -51,6 +51,7 @@ const DataTable = () => {
 				// 		ele.update(lastJsonMessage.batch[key])
 				// 	}
 				// })
+				//console.log(lastJsonMessage.batch)
 				batchUpdate(lastJsonMessage.batch);
 			} else { // the old way of tranfering datas
 				Object.entries(rows).forEach(([key, ele]) => {
@@ -66,20 +67,14 @@ const DataTable = () => {
 	}, [lastJsonMessage])
 	
 	const handleOnDragEnd = (result) => {
-		console.log("on drag end")
-		const items = Object.entries(orderedRows);
-		console.log(rows)
-		console.log(orderedRows)
-		console.log(items)
+		const items = Object.entries(rows);
 		const [reorderedItem] = items.splice(result.source.index, 1);
 		items.splice(result.destination.index, 0, reorderedItem);
-		console.log("new")
 		let itemsObj = {}
 		for (let i=0; i<items.length; i++) {
-			itemsObj[items[i][0]] = items[i][1]
+			itemsObj[items[i][0]] = items[i][1].value
 		}
-		console.log(itemsObj)
-		updateOrderRows(itemsObj);
+		batchUpdate(itemsObj)
 
 	}
 	// console.log("status: ", connectionStatus);
@@ -106,7 +101,7 @@ const DataTable = () => {
 				{(provided, snapshot) => (
 					<TableBody ref={provided.innerRef} {...provided.droppableProps}>
 						{provided.placeholder}
-						{Object.entries(orderedRows).map(([key, row], index) => {
+						{Object.entries(rows).map(([key, row], index) => {
 							return (
 								<Draggable key={key} draggableId={key} index={index}>
 								{(provided) => (
