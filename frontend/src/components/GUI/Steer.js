@@ -3,14 +3,14 @@ import { useFrames } from "../../routes/hooks/useFrames"
 
 export default ({ baseCol, lastJsonMessage}) => {
 
-    const { rows } = useFrames();
+    const { frames: frames } = useFrames();
     const dataRow = [
         "steer_angle"
     ]
     return (
-        <GUIstyle title={"Steer"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Steer"} frames={1} columns={1} baseCol={baseCol}>
             {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
+                <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
         </GUIstyle>
     )

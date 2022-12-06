@@ -3,7 +3,7 @@ import { useFrames } from "../../routes/hooks/useFrames"
 
 export default ({ baseCol, lastJsonMessage}) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
     const dataRow = [
         "control_board_temperature",
         "motor_temperature",
@@ -12,9 +12,9 @@ export default ({ baseCol, lastJsonMessage}) => {
     ]
 
     return (
-        <GUIstyle title={"Motor"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Motor"} frames={1} columns={1} baseCol={baseCol}>
             {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
+                <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
         </GUIstyle>
     )

@@ -37,44 +37,30 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const DataTable = () => {
 	const {socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage} = useWebSocket() ;
-	const { rows, batchUpdate } = useFrames();
+	const { rows, setRows, batchUpdate, frames } = useFrames();
 	const [cell, updateCell] = useState();
 	const [orderedRows, updateOrderRows] = useState(rows)
 
 	useEffect(() => {
 		// console.log("use Effect")
 		try {
-			if (lastJsonMessage.hasOwnProperty("batch")) {
-				// console.log("recieve message: ", lastJsonMessage)
-				// Object.entries(rows).forEach(([key, ele]) => {
-				// 	if (lastJsonMessage.batch.hasOwnProperty(key)) {
-				// 		ele.update(lastJsonMessage.batch[key])
-				// 	}
-				// })
-				//console.log(lastJsonMessage.batch)
 				batchUpdate(lastJsonMessage.batch);
-			} else { // the old way of tranfering datas
-				Object.entries(rows).forEach(([key, ele]) => {
-					// console.log(ele.name)
-					if (key === lastJsonMessage.name) {
-						// console.log("match: ", ele.name)
-						// console.log()
-						ele.update(lastJsonMessage.value)
-					}
-				})
-			}
 		} catch (error) {console.log(error)};
 	}, [lastJsonMessage])
 	
+
 	const handleOnDragEnd = (result) => {
-		const items = Object.entries(rows);
+		const items = rows;
 		const [reorderedItem] = items.splice(result.source.index, 1);
+		console.log(reorderedItem)
 		items.splice(result.destination.index, 0, reorderedItem);
-		let itemsObj = {}
-		for (let i=0; i<items.length; i++) {
-			itemsObj[items[i][0]] = items[i][1].value
-		}
-		batchUpdate(itemsObj)
+		console.log(items)
+		setRows(items)
+		// let itemsObj = {}
+		// for (let i=0; i<items.length; i++) {
+		// 	itemsObj[items[i][0]] = items[i][1].value
+		// }
+		// batchUpdate(itemsObj)
 
 	}
 	// console.log("status: ", connectionStatus);
@@ -101,24 +87,24 @@ const DataTable = () => {
 				{(provided, snapshot) => (
 					<TableBody ref={provided.innerRef} {...provided.droppableProps}>
 						{provided.placeholder}
-						{Object.entries(rows).map(([key, row], index) => {
+						{rows.map((row, index) => {
 							return (
-								<Draggable key={key} draggableId={key} index={index}>
+								<Draggable key={row} draggableId={row} index={index}>
 								{(provided) => (
 								<StyledTableRow
-									key={key}
+									key={row}
 									ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
 									sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 								>
 									<StyledTableCell component="th" scope="row"
 									>
-										{key}
+										{row}
 									</StyledTableCell>
 										<>
-										<StyledTableCell align="right" >{row.value}</StyledTableCell>
-										<StyledTableCell align="right" >{row.catagory}</StyledTableCell>
-										<StyledTableCell align="right" >{row.min}</StyledTableCell>
-										<StyledTableCell align="right" >{row.max}</StyledTableCell>
+										<StyledTableCell align="right" >{frames[row].value}</StyledTableCell>
+										<StyledTableCell align="right" >{frames[row].catagory}</StyledTableCell>
+										<StyledTableCell align="right" >{frames[row].min}</StyledTableCell>
+										<StyledTableCell align="right" >{frames[row].max}</StyledTableCell>
 										</>
 								</StyledTableRow>
 								)}

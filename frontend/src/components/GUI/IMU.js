@@ -3,7 +3,7 @@ import { useFrames } from "../../routes/hooks/useFrames"
 
 export default ({ baseCol, lastJsonMessage}) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
     const dataRow = [
         "imu_acceleration_x",
         "imu_acceleration_y",
@@ -19,9 +19,9 @@ export default ({ baseCol, lastJsonMessage}) => {
         "imu_quaternion_z",
     ]
     return (
-        <GUIstyle title={"IMU"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"IMU"} frames={1} columns={1} baseCol={baseCol}>
             {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
+                <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
         </GUIstyle>
     )

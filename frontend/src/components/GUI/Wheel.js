@@ -3,7 +3,7 @@ import { useFrames } from "../../routes/hooks/useFrames"
 
 export default ({ baseCol, lastJsonMessage}) => {
 
-    const { rows } = useFrames();
+    const { frames } = useFrames();
     const dataRow = [
 		// rear_box_1
 		"rear_left_wheel_speed",
@@ -21,9 +21,9 @@ export default ({ baseCol, lastJsonMessage}) => {
 		"front_right_tyre_temperature_2",
     ]
     return (
-        <GUIstyle title={"Wheel"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Wheel"} frames={1} columns={1} baseCol={baseCol}>
             {dataRow.map( (ele) => (
-                <div key={ele}>{ele}:{rows[ele].value}</div>
+                <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
         </GUIstyle>
     )
