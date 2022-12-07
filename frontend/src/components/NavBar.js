@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 
 import blackLogo from "./img/black.jpg"
 import bar from "./img/bar.png"
+import barShort from "./img/bar-short.png"
 import styled from 'styled-components'
 
 
@@ -131,7 +132,8 @@ const ResponsiveAppBar = (props) => {
             </Menu>
           </Box>
           
-          <Img src={bar}
+          <Img 
+            src={bar}
             onClick = {() => {navigate("/")}}
             style={{height:"5em", cursor: "pointer"}}
           ></Img>
@@ -141,7 +143,6 @@ const ResponsiveAppBar = (props) => {
             noWrap
             component="a"
             // href=""
-            src={bar}
             onClick={() => { navigate("/GUI"); }}
             sx={{
               fontSize: "3rem",
