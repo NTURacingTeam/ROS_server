@@ -32,9 +32,9 @@ const StyledChildren = styled.div`
 
 `
 
-export default ({title, rows, columns, baseCol, children}) => {
+export default ({title, rows, columns, children}) => {
 
-    const { makeSquare, updateSquare } = useGUI();
+    const { makeSquare, updateSquare, baseCol} = useGUI();
     const divRef = useRef(null);
     const [height, setHeight] = useState(100);
 
@@ -45,7 +45,7 @@ export default ({title, rows, columns, baseCol, children}) => {
 
     return (
 
-    <StyledCol span={baseCol } > 
+    <StyledCol span={baseCol} > 
         <div> 
             <StyledTitle>{title}</StyledTitle>
             <StyledChildren ref={divRef} style={{height: height}}>

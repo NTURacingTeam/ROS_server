@@ -1,11 +1,18 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 
-const GUIConext = createContext({
+const GUIContext = createContext({
     makeSquare: true,
+    baseCol: 0,
+    updateSquare: () => {},
+    handleChangeSelect: () => {},
+    setMakeSquare: () => {},
+    setBaseCol: () => {},
 });
 
 const GUIProvider = (props) => {
     const [ makeSquare, setMakeSquare ] = useState(false)
+    const [baseCol, setBaseCol] = useState(8);
+
     
     const updateSquare = (ref, setHeight) => {
         try {
@@ -14,18 +21,24 @@ const GUIProvider = (props) => {
         } catch (error) { console.log(error)}
     }
 
+    const handleChangeSelect = (value) => {
+        setMakeSquare(true);
+        setBaseCol( 24 / value);
+    };
+
+
     useEffect(() => {
-        setMakeSquare( makeSquare ? false : true)
+        setMakeSquare(false)
     }, [makeSquare])
 
     return (
-        <GUIConext.Provider
-			value={{ makeSquare, updateSquare }}
+        <GUIContext.Provider
+			value={{ makeSquare, updateSquare, baseCol, handleChangeSelect, setMakeSquare, setBaseCol }}
 			{...props}
 		/>
     )
 }
 
-const useGUI = () => useContext(GUIConext);
+const useGUI = () => useContext(GUIContext);
 
 export { useGUI, GUIProvider }

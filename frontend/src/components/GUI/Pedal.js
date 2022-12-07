@@ -88,7 +88,7 @@ const MicroIndicator = styled.div`
 
 `
 
-export default ({ baseCol }) => {
+export default () => {
 
     const { frames } = useFrames();
     const breakRef = useRef(null);
@@ -117,7 +117,7 @@ export default ({ baseCol }) => {
         "brake_micro"
     ]
     return (
-        <GUIstyle title={"Pedal"} frames={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Pedal"} frames={1} columns={1}>
             <StyledPedal>
                 <PedalBarContainer>
                     <PedalSlider ref={breakRef} style={{background: "rgba(255, 255, 0, 0.6)"}}>

@@ -24,7 +24,7 @@ const Description = styled.div`
     padding: 1em;
     font-size: 1.4em;
 `
-export default ({ baseCol}) => {
+export default () => {
 
     const { frames } = useFrames();
 
@@ -32,7 +32,7 @@ export default ({ baseCol}) => {
         "steer_angle"
     ]
     return (
-        <GUIstyle title={"Steer"} rows={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"Steer"} rows={1} columns={1}>
             <StyledRotate angle={frames.steer_angle.value}>
                 <SteerIcon />
             </StyledRotate>

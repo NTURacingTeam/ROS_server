@@ -6,6 +6,7 @@ import PlayGround from "./routes/PlayGround";
 // import SignIn from "./components/SigninExample"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
+import { GUIProvider } from "./routes/hooks/useGUI"
 
 function App() {
 	// let { WSmessage, sendData } = WebSocketState() ; 
@@ -17,7 +18,7 @@ function App() {
 					<Route path="/" element={<MainPage />} />
 					<Route path="/table" element={<DataTable />} />
 					<Route path="/playground" element={<PlayGround />} />
-					<Route path="/GUI" element={<GUI />} />
+					<Route path="/GUI" element={<GUIProvider><GUI /></GUIProvider> } />
 				</Routes>
 		</Router>
 	);

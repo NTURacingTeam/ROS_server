@@ -1,7 +1,7 @@
 import GUIstyle from "./GUIstyle"
 import { useFrames } from "../../routes/hooks/useFrames"
 
-export default ({ baseCol }) => {
+export default () => {
 
     const { frames } = useFrames();
     const dataRow = [
@@ -10,7 +10,7 @@ export default ({ baseCol }) => {
     ]
     
     return (
-        <GUIstyle title={"GPS"} frames={1} columns={1} baseCol={baseCol}>
+        <GUIstyle title={"GPS"} frames={1} columns={1}>
             {dataRow.map( (ele) => (
                 <div key={ele}>{ele}:{frames[ele].value}</div>
             ))}
