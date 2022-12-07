@@ -48,7 +48,7 @@ export default ({title, rows, columns, baseCol, children}) => {
 
     return (
 
-    <StyledCol span={baseCol * rows} > 
+    <StyledCol span={baseCol } > 
         <div> 
             <StyledTitle>{title}</StyledTitle>
             <StyledChildren ref={divRef} style={{height: height}}>
