@@ -155,7 +155,7 @@ const ResponsiveAppBar = (props) => {
             }}
             style={{cursor: "pointer"}}
           >
-            GUI Remote Moniter
+            GUI Remote Monitor
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
