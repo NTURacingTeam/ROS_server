@@ -1,8 +1,9 @@
 import { useFrames } from "./hooks/useFrames"
-import React, { useState, useEffect, createContent, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { Row, Select } from 'antd';
 import { useWebSocket } from './hooks/useWebSocket';
+import { GUIProvider } from './hooks/useGUI'
 
 import GPS from "../components/GUI/GPS"
 import IMU from "../components/GUI/IMU"
@@ -12,8 +13,6 @@ import Pedal from "../components/GUI/Pedal"
 import Steer from "../components/GUI/Steer"
 import Wheel from "../components/GUI/Wheel"
 import Torque from "../components/GUI/Torque"
-
-
 
 
 const StyledRow = styled(Row)`
@@ -42,25 +41,23 @@ export default () => {
       };
 
     return (
-        <div>
-            <h1>GUI page</h1><p>base column: {baseCol}/24</p>
-            <>
-                <Select
-                defaultValue={3}
-                style={{
-                    width: 150,
-                }}
-                onChange={handleChangeSelect}
-                options={[
-                    { value: 1, label: "1", },
-                    { value: 2, label: "2", },
-                    { value: 3, label: "3", },
-                    { value: 4, label: "4", },
-                    { value: 6, label: "6", },
-                   
-                ]}
-                />
-            </>
+        <GUIProvider>
+            <h1>GUI page</h1>
+            <p>base column: {baseCol}/24, card in a row: <Select
+            defaultValue={3}
+            style={{
+                width: 150,
+            }}
+            onChange={handleChangeSelect}
+            options={[
+                { value: 1, label: "1", },
+                { value: 2, label: "2", },
+                { value: 3, label: "3", },
+                { value: 4, label: "4", },
+                { value: 6, label: "6", },
+                
+            ]}
+            /></p>
             <StyledRow gutter={[24, 24]}>
                 <Pedal baseCol={baseCol} />
                 <Motor baseCol={baseCol} />
@@ -71,6 +68,6 @@ export default () => {
                 <GPS baseCol={baseCol} />
                 <Other baseCol={baseCol} />
             </StyledRow>
-        </div>
+        </GUIProvider>
     )
 }

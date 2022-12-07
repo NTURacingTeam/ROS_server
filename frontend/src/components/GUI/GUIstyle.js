@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import styled from 'styled-components'
 
+import { useGUI } from '../../routes/hooks/useGUI'
+
 
 const StyledCol = styled(Col)`
     background: transparent;
@@ -31,19 +33,14 @@ const StyledChildren = styled.div`
 `
 
 export default ({title, rows, columns, baseCol, children}) => {
+
+    const { makeSquare, updateSquare } = useGUI();
     const divRef = useRef(null);
     const [height, setHeight] = useState(100);
-    const [makeSquare, setMakeSquare] = useState(false)
 
 	useEffect(() => {
-        if (!makeSquare) {
-            try {
-                const h = divRef.current.offsetWidth;
-                setHeight(h);
-                setMakeSquare(true);
-            } catch (error) { console.log(error)}
-        }
-	}, [divRef.current, makeSquare]);
+        updateSquare(divRef, setHeight)
+	}, [makeSquare]);
    
 
     return (
