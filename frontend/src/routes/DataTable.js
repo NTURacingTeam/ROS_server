@@ -124,7 +124,7 @@ const DataTable = () => {
 										{row}
 									</StyledTableCell>
 										<>
-										<StyledTableCell align="right" >{frames[row].value}</StyledTableCell>
+										<StyledTableCell align="right" >{frames[row].value.toFixed(2)}</StyledTableCell>
 										<StyledTableCell align="right" >{frames[row].catagory}</StyledTableCell>
 										<StyledTableCell align="right" >{frames[row].min}</StyledTableCell>
 										<StyledTableCell align="right" >{frames[row].max}</StyledTableCell>
