@@ -384,7 +384,7 @@ const FramesProvider = (props) => {
     const batchUpdate = (batch) => {
         Object.entries(frames).forEach(([key, ele]) => {
             if (batch.hasOwnProperty(key)) {
-                ele.update(batch[key])
+                ele.update(batch[key].toFixed(2))
             }
         })
     }
