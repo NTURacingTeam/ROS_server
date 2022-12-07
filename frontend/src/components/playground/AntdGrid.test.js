@@ -42,14 +42,9 @@ const App = () => {
 		<>
 		<StyledRow gutter={[24, 24]}>
 			{[1,2,3,4,5,6,7,8,9,10,11,12].map( (ele, i) => (
-				<>
-				<StyledCol span={ele}> 
+				<StyledCol key={i} span={ele}> 
 					<div> {ele} </div>
 				</StyledCol>
-				<StyledCol span={24-ele}> 
-					<div> {24-ele} </div>
-				</StyledCol>
-				</>
 			))}
 		</StyledRow>
 		<div>----</div>
