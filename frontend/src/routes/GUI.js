@@ -84,8 +84,8 @@ export default () => {
                 <Pedal />
                 <Motor />
                 <Steer />
-                <Torque />
                 <Wheel />
+                <Torque />
                 <IMU />
                 <GPS />
                 <Other />
