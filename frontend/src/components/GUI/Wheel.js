@@ -38,6 +38,8 @@ const FloatMiddle = styled.div`
 	top: 50%;
 	right: 50%;
 
+    opacity: 0.5;
+
 `
 
 export default () => {
