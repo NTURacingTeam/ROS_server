@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 // import TableCell from '@mui/material/TableCell';
@@ -14,6 +14,9 @@ import { useFrames } from './hooks/useFrames';
 // reorder by drag and drop
 import {useState} from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import { Badge, Card, Space, Input } from 'antd';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -36,7 +39,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const DataTable = () => {
-	const {socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage} = useWebSocket() ;
+	const { setSocketUrl, socketUrl, sendMessage, connectionStatus, readyState, lastJsonMessage, lastMessage} = useWebSocket() ;
 	const { rows, setRows, batchUpdate, frames } = useFrames();
 	const [cell, updateCell] = useState();
 	const [orderedRows, updateOrderRows] = useState(rows)
@@ -63,12 +66,32 @@ const DataTable = () => {
 		// batchUpdate(itemsObj)
 
 	}
-	// console.log("status: ", connectionStatus);
+
+	const handleWebsocketInputOnChange = (e) => {
+		setSocketUrl(e.target.value)
+	};
 	return (
-		<div>
-			<br></br>
-			<br></br>
-			<span>The WebSocket is currently {connectionStatus}, websocket url is : {socketUrl}.  </span>
+		<Space
+			direction="vertical"
+			size="middle"
+			style={{
+				minWidth: 400, maxWidth: 700,
+			}}
+		>	
+			<Badge.Ribbon text={connectionStatus} color={connectionStatus === "Open" ? "green" : connectionStatus === "Connecting" ? "pink" : "red"}>
+				<Card title="websocket" size="small">
+					<Input
+						addonBefore="url : " 
+						style={{
+						width: 'calc(100% - 200px)',
+						}}
+						
+						defaultValue={socketUrl}
+						onChange={handleWebsocketInputOnChange}
+						/>
+				</Card>
+			</Badge.Ribbon>
+
 			{/* {lastMessage ? <span>Last message: {lastMessage.data}</span> : null} */}
 
 			<TableContainer component={Paper}>
@@ -117,7 +140,7 @@ const DataTable = () => {
 				</Table>
 		</DragDropContext>
 		</TableContainer>
-		</div>
+		</Space>
 	)
 }
 

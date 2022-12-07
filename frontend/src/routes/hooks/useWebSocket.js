@@ -1,4 +1,4 @@
-import React, { useState, useCallback, createContext, useContext } from 'react';
+import React, { useState, useCallback, createContext, useContext, useRef, useEffect } from 'react';
 import useWebSocketOrigin, { ReadyState } from 'react-use-websocket';
 
 const WebSocketContext = createContext({
@@ -9,7 +9,8 @@ const WebSocketContext = createContext({
 	lastJsonMessage: {},
 	lastMessage: "",
 	sendMessage: () => {}, 
-	sendJsonMessage: () => {}
+	sendJsonMessage: () => {},
+	setSocketUrl: () => {},
 })
 
 const WebSocketProvider = (props) => {
@@ -21,7 +22,24 @@ const WebSocketProvider = (props) => {
 			lastJsonMessage,
 			readyState,
 			getWebSocket,
-		  } = useWebSocketOrigin(socketUrl);
+		  } = useWebSocketOrigin(
+			socketUrl, 
+			{
+				shouldReconnect: (closeEvent) => {
+				return didUnmount.current === false;
+			},
+			reconnectAttempts: 10000,
+			reconnectInterval: 1000,
+		  	});
+
+	const didUnmount = useRef(false);
+
+	useEffect(() => {
+		return () => {
+			didUnmount.current = true;
+		};
+	}, []);
+		  
 
 	const message = JSON.stringify({name: "acceleration_1", value: 127}) 
 
@@ -39,7 +57,8 @@ const WebSocketProvider = (props) => {
 	return (
 		<WebSocketContext.Provider
 			value={{socketUrl, sendMessage, connectionStatus, 
-			readyState, lastJsonMessage, lastMessage, sendMessage, sendJsonMessage}}
+			readyState, lastJsonMessage, lastMessage, sendMessage, sendJsonMessage,
+			setSocketUrl}}
 			{...props}
 		/>
 	);
