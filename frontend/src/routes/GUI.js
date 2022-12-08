@@ -2,7 +2,7 @@ import { useFrames } from "./hooks/useFrames"
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { Row, Select } from 'antd';
-import { Badge, Card, Space, Input } from 'antd';
+import { Badge, Card, Space, Input, Checkbox, Divider} from 'antd';
 import { useWebSocket } from './hooks/useWebSocket';
 import { useGUI } from './hooks/useGUI'
 
@@ -16,6 +16,24 @@ import Steer from "../components/GUI/Steer"
 import Wheel from "../components/GUI/Wheel"
 import Torque from "../components/GUI/Torque"
 
+const CheckboxGroup = Checkbox.Group;
+const plainOptions = [
+    "Pedal",
+    "Motor",
+    "Steer",
+    "Wheel",
+    "Torque",
+    "IMU",
+    "GPS",
+    "Other", 
+];
+const defaultCheckedList = [
+    "Pedal",
+    "Motor",
+    "Steer",
+    "Wheel",
+];
+
 
 const StyledRow = styled(Row)`
 	.ant-col {
@@ -24,7 +42,7 @@ const StyledRow = styled(Row)`
 `
 
 export default () => {
-    const { setSocketUrl, socketUrl, connectionStatus, readyState, lastJsonMessage} = useWebSocket() ;
+    const { setSocketUrl, socketUrl, connectionStatus, lastJsonMessage} = useWebSocket() ;
 
     const { batchUpdate } = useFrames();
     const { baseCol, handleChangeSelect } = useGUI();
@@ -44,10 +62,25 @@ export default () => {
 	};
 
 
+    const [checkedList, setCheckedList] = useState(defaultCheckedList);
+    const [indeterminate, setIndeterminate] = useState(true);
+    const [checkAll, setCheckAll] = useState(false);
+    const onChange = (list) => {
+      setCheckedList(list);
+      setIndeterminate(!!list.length && list.length < plainOptions.length);
+      setCheckAll(list.length === plainOptions.length);
+    };
+    const onCheckAllChange = (e) => {
+      setCheckedList(e.target.checked ? plainOptions : []);
+      setIndeterminate(false);
+      setCheckAll(e.target.checked);
+    };
+  
+
     return (
         <>
-            <h1>GUI page</h1>
-            <Space style={{ minWidth: 400, maxWidth: 700, }}>
+            {/* <h1>GUI page</h1> */}
+            <Space style={{ maxWidth: 700, }}>
                 <Badge.Ribbon text={connectionStatus} color={connectionStatus === "Open" ? "green" : connectionStatus === "Connecting" ? "pink" : "red"}>
                     <Card title="websocket" size="small">
                         <Input
@@ -78,18 +111,20 @@ export default () => {
                         ]}
                     />
                 </Card>
-
             </Space>
             <StyledRow gutter={[24, 24]}>
-                <Pedal />
-                <Motor />
-                <Steer />
-                <Wheel />
-                <Torque />
-                <IMU />
-                <GPS />
-                <Other />
+                {checkedList.includes("Pedal") && <Pedal />}
+                {checkedList.includes("Motor") && <Motor />}
+                {checkedList.includes("Steer") && <Steer />}
+                {checkedList.includes("Wheel") && <Wheel />}
+                {checkedList.includes("Torque") && <Torque />}
+                {checkedList.includes("IMU") && <IMU />}
+                {checkedList.includes("GPS") && <GPS />}
+                {checkedList.includes("Other") && <Other />}
             </StyledRow>
+            <Card>
+                <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}> Check all </Checkbox> <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
+            </Card>
         </>
     )
 }
