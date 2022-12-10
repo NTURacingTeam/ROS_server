@@ -3,8 +3,6 @@ import { useFrames } from "../../routes/hooks/useFrames"
 import styled from "styled-components"
 import {ReactComponent as SteerIcon} from "../img/steer.svg"
 
-    //transform: rotate(${props => props.angle}}deg);
-    //transform: rotate(180deg);
 const StyledRotate = styled.div`
     padding: 5rem;
     transform: rotate(${
@@ -33,11 +31,11 @@ export default () => {
     ]
     return (
         <GUIstyle title={"Steer"} rows={1} columns={1}>
-            <StyledRotate angle={frames.steer_angle.value}>
+            <StyledRotate angle={frames.steer_angle.value*180/3.1415926}>
                 <SteerIcon />
             </StyledRotate>
             <Description>
-                {frames.steer_angle.value}
+                {frames.steer_angle.value*180/3.1415926}
             </Description>
         </GUIstyle>
     )
