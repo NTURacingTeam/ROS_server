@@ -18,8 +18,9 @@ const Description = styled.div`
     right: 50%;
     background: rgba(255, 0, 0, 0.7);
     border-radius: 0.3em;
-    width: 4em;
-    padding: 1em;
+    width: min-content;
+    width: 3em;
+    padding: 0.1em;
     font-size: 1.4em;
 `
 export default () => {

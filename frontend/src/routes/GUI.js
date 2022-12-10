@@ -33,6 +33,7 @@ const defaultCheckedList = [
     "Steer",
     "Wheel",
     "Other", 
+    "Torque",
 ];
 
 
