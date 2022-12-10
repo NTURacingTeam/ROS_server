@@ -32,6 +32,7 @@ const defaultCheckedList = [
     "Motor",
     "Steer",
     "Wheel",
+    "Other", 
 ];
 
 
