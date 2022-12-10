@@ -84,7 +84,7 @@ const MicroIndicator = styled.div`
         position: absolute;
         top: 100%;
     }
-    
+    ${({ state }) => state && 'background-color:  rgba(255, 0, 0, 1);'};
 
 `
 
@@ -138,8 +138,8 @@ export default () => {
                     <span>acc 2</span>
                 </PedalBarContainer>
                 <MicroContainer>
-                    <MicroIndicator red={ accelerator_micro == 1.0 }><span>Brake</span></MicroIndicator>
-                    <MicroIndicator red={ brake_micro == 1.0 }><span>acc</span></MicroIndicator>
+                    <MicroIndicator state={ frames.accelerator_micro.value == 1 }><span>Acc:{frames.accelerator_micro.value}</span></MicroIndicator>
+                    <MicroIndicator state={ frames.brake_micro.value == 1 }><span>Brake:{frames.brake_micro.value}</span></MicroIndicator> 
                 </MicroContainer>
             </StyledPedal>
         </GUIstyle>
