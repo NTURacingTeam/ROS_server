@@ -34,6 +34,7 @@ const defaultCheckedList = [
     "Wheel",
     "Other", 
     "Torque",
+    "IMU",
 ];
 
 

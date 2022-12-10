@@ -36,7 +36,7 @@ export default () => {
                 <SteerIcon />
             </StyledRotate>
             <Description>
-                {frames.steer_angle.value*180/3.1415926}
+                {(frames.steer_angle.value*180/3.1415926).toFixed(2)}
             </Description>
         </GUIstyle>
     )

@@ -41,7 +41,7 @@ export default () => {
             <Tooltip title="brake oil pressure" >
                 <NumberContainer>
                     <StyledNumber>
-                        {oil_pressure.value}<U> bar</U>
+                        {oil_pressure.value.toFixed(2)}<U> bar</U>
                     </StyledNumber>
                 </NumberContainer>
             </Tooltip>
