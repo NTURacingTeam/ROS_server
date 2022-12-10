@@ -17,6 +17,15 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { Badge, Card, Space, Input } from 'antd';
 
+const StyledLED = styled("div")`
+	height: 1em;
+	aspect-ratio: 1;
+	background: ${props => props.lightUp ? "green" : "transparent"};
+	border-width: 0.1em;
+	border-color: black;
+	border-radius: 50%;
+	border-style: solid;
+`
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -43,6 +52,20 @@ const DataTable = () => {
 	const { rows, setRows, batchUpdate, frames } = useFrames();
 	const [cell, updateCell] = useState();
 	const [orderedRows, updateOrderRows] = useState(rows)
+
+	const [ recievedMessage, setRecievedMessage ] = useState(false)
+	const [ lightUp , setLightUp ] = useState(false)
+
+	useEffect(() => {
+		setLightUp(true);
+	}, [lastJsonMessage])
+
+	useEffect(() => {
+		  
+		  setTimeout(setLightUp, 500, false);
+		  
+		setRecievedMessage(false)
+	}, [lastJsonMessage])
 
 	useEffect(() => {
 		// console.log("use Effect")
@@ -79,7 +102,7 @@ const DataTable = () => {
 			}}
 		>	
 			<Badge.Ribbon text={connectionStatus} color={connectionStatus === "Open" ? "green" : connectionStatus === "Connecting" ? "pink" : "red"}>
-				<Card title="websocket" size="small">
+				<Card title={<span style={{display: "flex"}}>new websocket msg update&nbsp;  <StyledLED lightUp={lightUp} /></span>} size="small">
 					<Input
 						addonBefore="url : " 
 						style={{
@@ -89,6 +112,7 @@ const DataTable = () => {
 						defaultValue={socketUrl}
 						onChange={handleWebsocketInputOnChange}
 						/>
+					
 				</Card>
 			</Badge.Ribbon>
 
