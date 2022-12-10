@@ -138,8 +138,8 @@ export default () => {
                     <span>acc 2</span>
                 </PedalBarContainer>
                 <MicroContainer>
-                    <MicroIndicator state={ frames.accelerator_micro.value == 1 }><span>Acc</span></MicroIndicator>
                     <MicroIndicator state={ frames.brake_micro.value == 1 }><span>Brake</span></MicroIndicator> 
+                    <MicroIndicator state={ frames.accelerator_micro.value == 1 }><span>Acc</span></MicroIndicator>
                 </MicroContainer>
             </StyledPedal>
         </GUIstyle>
