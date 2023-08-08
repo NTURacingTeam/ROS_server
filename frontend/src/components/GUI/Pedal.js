@@ -21,27 +21,25 @@ const PedalBarContainer = styled.div`
 
     span {
         font-weight: bold;
-        marigin: 5em 0;
+        marigin: 5rem 0;
     }
 `
 const PedalSlider = styled.div`
-
-
     background-color: rgba(255, 179, 102, 0.8);;
-    height: calc(100% - 3em);
-    margin: 0 auto 0.4em auto;
+    height: calc(100% - 3rem);
+    margin: 0 auto 0.4rem auto;
     width: 60%;
-    border-radius: 0.3em;
+    border-radius: 0.3rem;
     position: relative;
 `
 const PedalBar = styled.div`
     position: absolute;
     background-color: gray;
-    // padding: 0.2em;
+    // padding: 0.2rem;
     width: 100%;
     aspect-ratio: 1;
     bottom: ${props => props.distance2Bottom}px;
-    border-radius: 0.3em;
+    border-radius: 0.3rem;
     
     svg {
         position: absolute;
@@ -64,7 +62,7 @@ const MicroContainer = styled.div`
 
     span {
         font-weight: bold;
-        marigin: 5em 0;
+        marigin: 5rem 0;
     }
 `
 
@@ -109,6 +107,26 @@ export default () => {
        console.log(fullHeight)
     }, [breakRef.current, acc1Ref.current, acc2Ref.current])
 
+    const ref = useRef(null);
+    
+    useEffect(() => {
+        const handleresize = event => {
+            console.log('event trigger');
+            const browserZoomLevel = Math.round(window.devicePixelRatio * 100);
+            console.log(browserZoomLevel)
+          
+
+        };
+    
+        const element = ref.current;
+    
+        element.addEventListener('resize', handleresize);
+    
+        return () => {
+        element.removeEventListener('resize', handleresize);
+        };
+    }, []);
+
     const dataRow = [
         "brake",
         "accelerator_1",
@@ -118,7 +136,7 @@ export default () => {
     ]
     return (
         <GUIstyle title={"Pedal"} frames={1} columns={1}>
-            <StyledPedal>
+            <StyledPedal ref={ref}>
                 <PedalBarContainer>
                     <PedalSlider ref={breakRef} style={{background: "rgba(255, 255, 0, 0.6)"}}>
                         <PedalBar distance2Bottom={brake.value/brake.max * fullHeight}><DehazeOutlinedIcon /></PedalBar>
@@ -138,8 +156,8 @@ export default () => {
                     <span>acc 2</span>
                 </PedalBarContainer>
                 <MicroContainer>
-                    <MicroIndicator state={ frames.brake_micro.value == 1 }><span>Brake</span></MicroIndicator> 
-                    <MicroIndicator state={ frames.accelerator_micro.value == 1 }><span>Acc</span></MicroIndicator>
+                    <MicroIndicator state={ brake_micro.value == 1 }><span>Brake</span></MicroIndicator> 
+                    <MicroIndicator state={ accelerator_micro.value == 1 }><span>Acc</span></MicroIndicator>
                 </MicroContainer>
             </StyledPedal>
         </GUIstyle>

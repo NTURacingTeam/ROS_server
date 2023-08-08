@@ -17,11 +17,11 @@ const Description = styled.div`
     top: 50%;
     right: 50%;
     background: rgba(255, 0, 0, 0.7);
-    border-radius: 0.3em;
+    border-radius: 0.3rem;
     width: min-content;
-    width: 3em;
-    padding: 0.1em;
-    font-size: 1.4em;
+    width: 3rem;
+    padding: 0.1rem;
+    font-size: 1.4rem;
 `
 export default () => {
 
@@ -32,12 +32,9 @@ export default () => {
     ]
     return (
         <GUIstyle title={"Steer"} rows={1} columns={1}>
-            <StyledRotate angle={frames.steer_angle.value*180/3.1415926}>
+            <StyledRotate angle={frames.steer_angle.value}>
                 <SteerIcon />
             </StyledRotate>
-            <Description>
-                {(frames.steer_angle.value*180/3.1415926).toFixed(2)}
-            </Description>
         </GUIstyle>
     )
 }

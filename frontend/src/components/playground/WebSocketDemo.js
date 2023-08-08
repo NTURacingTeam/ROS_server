@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 
-export default WebSocketDemo = () => {
+export default () => {
   //Public API that will echo messages sent to it back to the client
-  const [socketUrl, setSocketUrl] = useState('ws://124.218.222.22:8080');
+  const [socketUrl, setSocketUrl] = useState('ws://140.112.14.14:21543');
   const [messageHistory, setMessageHistory] = useState([]);
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
@@ -19,7 +19,7 @@ export default WebSocketDemo = () => {
     []
   );
   
-  const initMessage = JSON.stringify({name: "accelerator_1", value: 127});
+  const initMessage = JSON.stringify({batch: {accelerator_1: 1}});
   const [message, setMessage] = useState(initMessage);
 
   const handleClickSendMessage = () => {console.log(message); sendMessage(message)};
@@ -57,19 +57,19 @@ export default WebSocketDemo = () => {
       >
         Click Me to send {message}
       </button>
-      {/* <button
+      <button
         onClick={handleClickCheckState}
       >
         Click Me check state
-      </button> */}
+      </button>
 
       <span>The WebSocket is currently {connectionStatus}</span>
       {lastMessage ? <span>Last message: {lastMessage.data}</span> : null}
-      {/* <ul>
+      <ul>
         {messageHistory.map((message, idx) => (
           <span key={idx}>{message ? message.data : null}</span>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };

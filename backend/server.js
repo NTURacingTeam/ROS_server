@@ -1,5 +1,5 @@
 import WebSocket, { WebSocketServer } from 'ws';
-const websocketport = 8080;
+const websocketport = 21543;
 
 const ws_server = new WebSocketServer({
     port : websocketport
@@ -12,6 +12,7 @@ ws_server.on('connection', function(socket) {
     console.log("sockets length: ", sockets.length);
     socket.on('message', function(msg) {
         try {
+            // msg = msg.replaceAll('nan', "null");
             var json_data = JSON.parse(msg);
             console.log("racieved message: ", json_data);
         } catch(error) {

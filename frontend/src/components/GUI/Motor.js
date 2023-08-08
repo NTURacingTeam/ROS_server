@@ -33,10 +33,11 @@ export default () => {
 
     const { frames } = useFrames();
     const dataRow = [
-        "control_board_temperature",
+        "inverter_control_board_temperature",
         "motor_temperature",
         "motor_speed",
-        "input_voltage",
+        "inverter_dc_bus_voltage",
+        "inverter_dc_bus_current",
     ]
 
     return (
@@ -45,7 +46,7 @@ export default () => {
                 <Tooltip title="control board temperature" >
                     <StyledSubDiv>
                         <ControlOutlined /><DeviceThermostatIcon fontSize="inherit"/>
-                        <StyledNumber>{frames.control_board_temperature.value.toFixed(2)}<U> °C</U></StyledNumber>
+                        <StyledNumber>{frames.inverter_control_board_temperature.value.toFixed(2)}<U> °C</U></StyledNumber>
                     </StyledSubDiv>
                 </Tooltip>
                 <Tooltip title="motor temperature" >
@@ -60,13 +61,13 @@ export default () => {
                 <Tooltip title="motor speed" >
                     <StyledSubDiv>
                         <SpeedIcon fontSize="inherit"/>
-                        <StyledNumber>{(frames.motor_speed.value * 30 / Math.PI).toFixed(0)} <U>rpm</U></StyledNumber>
+                        <StyledNumber>{(frames.motor_speed.value).toFixed(0)} <U>rpm</U></StyledNumber>
                     </StyledSubDiv>
                 </Tooltip>
                 <Tooltip title="input voltage" >
                     <StyledSubDiv>
                         <BoltIcon fontSize="inherit"/>
-                        <StyledNumber>{frames.input_voltage.value.toFixed(2)} <U>V</U></StyledNumber>
+                        <StyledNumber>{frames.inverter_dc_bus_voltage.value.toFixed(2)} <U>V</U></StyledNumber>
                     </StyledSubDiv>
                 </Tooltip>
             </StyledDiv>

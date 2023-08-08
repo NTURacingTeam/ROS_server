@@ -19,32 +19,42 @@ const StyledNumber = styled.div`
     // top: auto;
     // bottom: auto;
     // background-color: red;
-    font-size: 4em;
+    font-size: 3em;
 `
 
 const NumberContainer = styled.div`
     position: relative;
     width: inherit;
-    height: inherit;
+    height: 50%;
     // background-color: green;
 `
 
 export default () => {
 
     const { frames } = useFrames();
-    const { oil_pressure } = frames ;
+    const { front_brake_pressure, reer_brake_pressure} = frames ;
     const dataRow = [
-        "oil_pressure"
+        "front_brake_pressure",
+        "reer_brake_pressure",
     ]
     return (
-        <GUIstyle title={"Other"} frames={1} columns={1}>
-            <Tooltip title="brake oil pressure" >
+        <GUIstyle title={"Oil Brake"} frames={1} columns={1}>
+            <Tooltip title="front brake oil pressure" >
                 <NumberContainer>
                     <StyledNumber>
-                        {oil_pressure.value.toFixed(2)}<U> bar</U>
+                        {front_brake_pressure.value.toFixed(2)}<U> bar</U>
+                    </StyledNumber>
+                </NumberContainer>
+            </Tooltip>
+            <Tooltip title="rear brake oil pressure" >
+                <NumberContainer>
+                    <StyledNumber>
+                        {front_brake_pressure.value.toFixed(2)}<U> bar</U>
                     </StyledNumber>
                 </NumberContainer>
             </Tooltip>
         </GUIstyle>
     )
 }
+
+

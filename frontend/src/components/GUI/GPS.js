@@ -5,8 +5,11 @@ export default () => {
 
     const { frames } = useFrames();
     const dataRow = [
-        "GPS_lon",
-        "GPS_lat"
+        "gps_fix_latitude",
+        "gps_fix_longitude",
+        "gps_fix_altitude",
+        "gps_vel_linear_x",
+        "gps_vel_linear_y",
     ]
     
     return (

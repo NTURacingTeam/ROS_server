@@ -25,7 +25,7 @@ const StyledCol = styled(Col)`
 
 const StyledTitle = styled.h1`
     margin: 0;
-    padding: 0.25em 0;
+    // padding: 0.1rem 0;
 `
 
 const StyledChildren = styled.div`

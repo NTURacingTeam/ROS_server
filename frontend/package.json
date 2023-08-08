@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@material/data-table": "^14.0.0",
@@ -12,8 +13,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ant-design": "^1.0.0",
     "antd": "^5.0.3",
     "mapbox-gl": "^2.11.1",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
@@ -25,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=8880 react-scripts start",
+    "start": "PORT=8888 react-scripts start",
     "https": "HTTPS=true && SSL_CRT_FILE=./cert/cert.pem && SSL_KEY_FILE=./cert/key.pem && PORT=8100 react-scripts start",
     "https_un": "HTTPS=true PORT=8100 react-scripts start",
     "build": "react-scripts build",

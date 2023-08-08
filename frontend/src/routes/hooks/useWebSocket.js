@@ -14,7 +14,7 @@ const WebSocketContext = createContext({
 })
 
 const WebSocketProvider = (props) => {
-	const [socketUrl, setSocketUrl] = useState('ws://124.218.222.22:8080');
+	const [socketUrl, setSocketUrl] = useState('ws://140.112.14.14:21543');
 
 	const { sendMessage,
 			sendJsonMessage,

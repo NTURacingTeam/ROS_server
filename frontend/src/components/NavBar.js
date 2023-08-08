@@ -57,6 +57,7 @@ const pages = [
     {name: 'table', path: '/table'},
     {name: 'GUI', path: '/GUI'},
     {name: 'playground', path: '/playground'},
+    {name: 'Accumulator', path: '/accumulator'},
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
