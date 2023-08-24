@@ -12,6 +12,7 @@ const ws_server = new WebSocketServer({
 let sockets = [];
 
 const keys = [
+   {key: 'timestamp', as: 'timestamp'},
    {key: 'can_rx_timeout', as: 'can_rx_timeout'},
    {key: 'vcu_status', as: 'vcu_status'},
    {key: 'vcu_error_code', as: 'vcu_error_code'},
@@ -88,8 +89,8 @@ const keys = [
    {key: 'disk_usage', as: 'disk_usage'},
    {key: 'cpu_temperature', as: 'cpu_temperature'},
 ];
-let recording = false;
-let time_stamp = 0;
+var recording = false;
+var filename = "0";
 ws_server.on('connection', function(socket) {
     sockets.push(socket);
     console.log("sockets length: ", sockets.length);
@@ -107,6 +108,7 @@ ws_server.on('connection', function(socket) {
         const json_to_send = JSON.stringify(json_data);
         if (json_data.hasOwnProperty("batch")) {
             var json_to_write = [json_data.batch];
+            json_to_write[0].timestamp = json_data["timestamp"];
             if (recording) {
                 if (json_to_write[0].vcu_status != 2 && json_to_write[0]['vcu_status'] != 3) {
                     recording = false;        
@@ -114,16 +116,17 @@ ws_server.on('connection', function(socket) {
                 let otc = new ObjectToCSV({keys, data: json_to_write});
                 otc.quote = '';
                 let csv = otc.getCSV().split('\n').slice(1).join('\n');
-                fs.writeFileSync('./records/' + time_stamp + '.csv' , csv, {flag: "a+"});
+                fs.writeFileSync('./records/' + filename + '.csv' , csv, {flag: "a+"});
             }
             else {
                 if (json_to_write[0]['vcu_status'] == 2 || json_to_write[0]['vcu_status'] == 3) {
                     recording = true;
-                    time_stamp = json_data["timestamp"];
+                    let record_start_time = new Date(1000*json_data["timestamp"]);
+                    filename = record_start_time.getFullYear() + '-' + record_start_time.getMonth() + '-' + record_start_time.getDate() + '-' + record_start_time.getHours() + '-' + record_start_time.getMinutes() + '-' + record_start_time.getSeconds();
                     let otc = new ObjectToCSV({keys, data: json_to_write});
                     otc.quote = '';
                     let csv = otc.getCSV();
-                    fs.writeFileSync('./records/' + time_stamp + '.csv' , csv, {flag: "a+"});
+                    fs.writeFileSync('./records/' + filename + '.csv' , csv, {flag: "a+"});
                 }
             }
         }
