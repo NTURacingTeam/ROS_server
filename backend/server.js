@@ -111,6 +111,7 @@ ws_server.on('connection', function(socket) {
                     recording = false;        
                 }
                 let otc = new ObjectToCSV({keys, data: json_to_write});
+                otc.quote = '';
                 let csv = otc.getCSV().split('\n').slice(1).join('\n');
                 fs.writeFileSync('./records/' + time_stamp + '.csv' , csv, {flag: "a+"});
             }
@@ -119,6 +120,7 @@ ws_server.on('connection', function(socket) {
                     recording = true;
                     time_stamp = json_data["timestamp"];
                     let otc = new ObjectToCSV({keys, data: json_to_write});
+                    otc.quote = '';
                     let csv = otc.getCSV();
                     fs.writeFileSync('./records/' + time_stamp + '.csv' , csv, {flag: "a+"});
                 }
