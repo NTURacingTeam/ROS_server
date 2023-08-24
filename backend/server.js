@@ -81,6 +81,7 @@ const keys = [
    {key: 'gps_fix_longitude', as: 'gps_fix_longitude'},
    {key: 'gps_fix_latitude', as: 'gps_fix_latitude'},
    {key: 'gps_vel_linear_x', as: 'gps_vel_linear_x'},
+   {key: 'gps_vel_linear_y', as: 'gps_vel_linear_y'},
    {key: 'cpu_usage', as: 'cpu_usage'},
    {key: 'memory_usage', as: 'memory_usage'},
    {key: 'swap_usage', as: 'swap_usage'},
