@@ -81,7 +81,7 @@ const DataTable = () => {
 	useEffect(() => {
 		// console.log("use Effect")
 		try {
-			accumulatorUpdate(lastJsonMessage.batch)
+			accumulatorUpdate(lastJsonMessage.accumulator)
 		} catch (error) {};
 	}, [lastJsonMessage])
 	
