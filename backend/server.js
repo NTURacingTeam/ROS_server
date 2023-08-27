@@ -96,9 +96,7 @@ ws_server.on('connection', function(socket) {
     console.log("sockets length: ", sockets.length);
     socket.on('message', function(msg) {
         try {
-					// try {
             // msg = msg.replaceAll('nan', "null");
-					// } catch (e) {console.log(e)}
             var json_data = JSON.parse(msg);
             console.log("recieved message");
         } catch(error) {
