@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd frontend && yarn start",
-    "server": "cd backend && yarn start",
+    "frontend": "cd frontend && pnpm start",
+    "backend": "cd backend && pnpm start",
+    "start": "cd backend && pnpm start && cd records && php -S 0.0.0.0:8889 && cd ../../frontend && pnpm start",
     "predeploy": "cd frontend && npm run build"
   },
   "keywords": [],
