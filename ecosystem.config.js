@@ -1,18 +1,18 @@
 module.exports = {
   apps : [{
-    name   : "ROS_server-frontend",
+    name   : "frontend",
     script : "cd frontend && pnpm start",
-		watch  : true,
+		//watch  : true,
   },
   {
-    name   : "ROS_server-backend",
+    name   : "backend",
     script : "cd backend && pnpm start"
-		watch  : true,
+		//watch  : true,
   },
   {
-    name   : "ROS_server-records",
+    name   : "records",
     script : "cd backend/records && php -S 0.0.0.0:8889"
-		watch  : true,
+		//watch  : true,
   },
   ]
 }
