@@ -10,13 +10,21 @@ hosts website for remote monitor (control tower) for the Epsilon 4 racing car.
 
 first make sure yarn is installed.
 
-run `yarn install` in root file, frontend folder, and backend folder. 
+run `pnpm install` in root file, frontend folder, and backend folder. 
 
 ### Deploy
 Make sure you are in the root directory of this repo.
 
-To start the frontend run `yarn start`.
+#### Recommand
 
-To start the backend run `yarn server`.
+To start all run `pm2 start`.
 
-(remark: these two should be runned in different shells)
+#### Others 
+
+To start the frontend run `pnpm start`.
+
+To start the backend run `pnpm server`.
+
+To start the records server run `php -S 0.0.0.0:8889` at `./backend/records`.
+
+(remark: these three should be runned in different shells)
