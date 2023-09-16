@@ -2,9 +2,12 @@ import { useFrames } from "./hooks/useFrames"
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { Row, Select } from 'antd';
-import { Badge, Card, Space, Input, Checkbox, Divider} from 'antd';
+import { Badge, Card, Space, Input, Checkbox, Divider, Button} from 'antd';
+import { notification } from 'antd';
+import { BorderBottomOutlined, BorderTopOutlined } from '@ant-design/icons';
 import { useWebSocket } from './hooks/useWebSocket';
-import { useGUI } from './hooks/useGUI'
+import { useGUI } from './hooks/useGUI';
+import axios from 'axios';
 
 
 import GPS from "../components/GUI/GPS"
@@ -16,6 +19,7 @@ import Steer from "../components/GUI/Steer"
 import Wheel from "../components/GUI/Wheel"
 import StatusError from "../components/GUI/StatusError"
 import Rpi from "../components/GUI/Rpi";
+import { BACKEND_URL_HTTP } from "../lib/parameters";
 
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = [
@@ -51,7 +55,6 @@ export default () => {
 
     const { batchUpdate } = useFrames();
     const { baseCol, handleChangeSelect } = useGUI();
-    
     useEffect(() => {
 		// console.log("use Effect")
 		try {
@@ -89,10 +92,30 @@ export default () => {
       setIndeterminate(false);
       setCheckAll(e.target.checked);
     };
-  
 
+    const [api, contexHolder] = notification.useNotification();    
+    const openNotification = (msg) => {
+        api.info({
+            message: msg,
+            description: msg,
+            placement: 'topRight',
+            top: 100,
+            maxCount: 5,
+        });
+    }
+    const recordOnClick = (status) => {
+        axios.put(BACKEND_URL_HTTP + '/manual-record', {
+            "control": status,
+        })
+        .then((res) => {
+            openNotification(res.data);
+            console.log(res);
+        });
+    };
+  
     return (
         <>
+            {contexHolder}
             {/* <h1>GUI page</h1> */}
             <Space style={{ maxWidth: 700, }}>
                 <Badge.Ribbon text={connectionStatus} color={connectionStatus === "Open" ? "green" : connectionStatus === "Connecting" ? "pink" : "red"}>
@@ -124,6 +147,17 @@ export default () => {
                             
                         ]}
                     />
+                </Card>
+                <Card>
+                    Manual Recording
+                    <Space>
+                    <Button type="primary" onClick={() => {recordOnClick("start")}}>
+                        Start Record
+                    </Button>
+                    <Button type="primary" onClick={() => {recordOnClick("stop")}} danger >
+                        Stop Record
+                    </Button>
+                    </Space>
                 </Card>
             </Space>
             <StyledRow gutter={[24, 24]}>

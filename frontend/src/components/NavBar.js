@@ -89,7 +89,7 @@ const ResponsiveAppBar = (props) => {
     <>
 
     <HideOnScroll {...props}>
-    <AppBar>
+    <AppBar sx={{zIndex: 1000,}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 

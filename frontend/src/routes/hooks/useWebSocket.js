@@ -1,5 +1,6 @@
 import React, { useState, useCallback, createContext, useContext, useRef, useEffect } from 'react';
 import useWebSocketOrigin, { ReadyState } from 'react-use-websocket';
+import { BACKEND_URL } from '../../lib/parameters';
 
 const WebSocketContext = createContext({
 	socketUrl: "",
@@ -14,7 +15,7 @@ const WebSocketContext = createContext({
 })
 
 const WebSocketProvider = (props) => {
-	const [socketUrl, setSocketUrl] = useState('ws://140.112.14.14:21543');
+	const [socketUrl, setSocketUrl] = useState(BACKEND_URL);
 
 	const { sendMessage,
 			sendJsonMessage,
