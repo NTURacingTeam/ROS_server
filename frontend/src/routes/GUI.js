@@ -163,10 +163,17 @@ export default () => {
     const handleOk = () => {
         setOpen(false);
       };
-      const handleCancel = () => {
-        console.log('Clicked cancel button');
-        setOpen(false);
-      };
+    const handleCancel = () => {
+      console.log('Clicked cancel button');
+      setOpen(false);
+    };
+    
+    const showRecordingStatus = () => {
+      axios.get(BACKEND_URL_HTTP + '/get-recording-status', (req, res) => {
+      }).then((res) => {
+        openNotification(`${res.data}`)
+      })
+    }
 
     return (
         <>
@@ -211,6 +218,9 @@ export default () => {
                     </Button>
                     <Button type="primary" onClick={() => {recordOnClick("stop")}} danger >
                         Stop Record
+                    </Button>
+                    <Button type="default" onClick={() => {showRecordingStatus()}}>
+                        Show Recording Status
                     </Button>
                     </Space>
                 </Card>
