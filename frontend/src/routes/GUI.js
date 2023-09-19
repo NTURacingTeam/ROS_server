@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Row, Select } from 'antd';
 import { Badge, Card, Space, Input, Checkbox, Divider, Button} from 'antd';
 import { notification } from 'antd';
+import { Modal, List, Avatar } from 'antd';
 import { BorderBottomOutlined, BorderTopOutlined } from '@ant-design/icons';
 import { useWebSocket } from './hooks/useWebSocket';
 import { useGUI } from './hooks/useGUI';
@@ -30,8 +31,8 @@ const plainOptions = [
     "Status & Error",
     "IMU",
     "GPS",
-    "Oil Brake", 
-    "Rpi", 
+    "Oil Brake",
+    "Rpi",
 ];
 const defaultCheckedList = [
     "Pedal",
@@ -39,16 +40,47 @@ const defaultCheckedList = [
     "Wheel",
     "Status & Error",
     "IMU",
-    "Oil Brake", 
+    "Oil Brake",
     "Rpi",
 ];
 
 
 const StyledRow = styled(Row)`
-	.ant-col {
-		// padding: 1em;
-	}
+  .ant-col {
+    // padding: 1em;
+  }
 `
+
+const defaultData = [
+  {
+    title: 'Ant Design Title 1',
+    href : 'https://nturacing.tw'
+  },
+  {
+    title: 'Ant Design Title 2',
+    href : 'https://nturacing.tw'
+  },
+  {
+    title: 'Ant Design Title 3',
+    href : 'https://nturacing.tw'
+  },
+  {
+    title: 'Ant Design Title 4',
+    href : 'https://nturacing.tw'
+  },
+  {
+    title: 'Ant Design Title 5',
+    href : 'https://nturacing.tw'
+  },
+]
+
+
+
+
+
+
+
+
 
 export default () => {
     const { setSocketUrl, socketUrl, connectionStatus, lastJsonMessage} = useWebSocket() ;
@@ -56,13 +88,13 @@ export default () => {
     const { batchUpdate } = useFrames();
     const { baseCol, handleChangeSelect } = useGUI();
     useEffect(() => {
-		// console.log("use Effect")
-		try {
-			if (lastJsonMessage.hasOwnProperty("batch")) {
-				batchUpdate(lastJsonMessage.batch);
-			}
-		} catch (error) {console.log(error)};
-	}, [lastJsonMessage])
+    // console.log("use Effect")
+    try {
+      if (lastJsonMessage.hasOwnProperty("batch")) {
+        batchUpdate(lastJsonMessage.batch);
+      }
+    } catch (error) {console.log(error)};
+  }, [lastJsonMessage])
 
     function isValidUrl(string) {
         try {
@@ -71,12 +103,12 @@ export default () => {
         } catch (err) {
           return false;
         }
-      }      
+      }
 
     const handleWebsocketInputOnChange = (e) => {
         console.log(e.target.value)
         if (isValidUrl(e.target.value)) setSocketUrl(e.target.value);
-	};
+  };
 
 
     const [checkedList, setCheckedList] = useState(defaultCheckedList);
@@ -93,7 +125,7 @@ export default () => {
       setCheckAll(e.target.checked);
     };
 
-    const [api, contexHolder] = notification.useNotification();    
+    const [api, contexHolder] = notification.useNotification();
     const openNotification = (msg) => {
         api.info({
             message: msg,
@@ -109,10 +141,33 @@ export default () => {
         })
         .then((res) => {
             openNotification(res.data);
-            console.log(res);
+            console.log(res.data);
         });
     };
-  
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [modalText, setModalText] = useState('Content of the modal');
+
+    const [data, setData] = useState(defaultData);
+    const showModal = async () => {
+      setOpen(true);
+      setConfirmLoading(true);
+      const recordsJson = await axios.get(BACKEND_URL_HTTP + '/get-records')
+      .then((res) => {
+        return res.data
+      })
+      setData(recordsJson);
+      console.log("fetch records files")
+    };
+
+    const handleOk = () => {
+        setOpen(false);
+      };
+      const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setOpen(false);
+      };
+
     return (
         <>
             {contexHolder}
@@ -121,10 +176,10 @@ export default () => {
                 <Badge.Ribbon text={connectionStatus} color={connectionStatus === "Open" ? "green" : connectionStatus === "Connecting" ? "pink" : "red"}>
                     <Card title="websocket" size="small">
                         <Input
-                            addonBefore="url : " 
+                            addonBefore="url : "
                             style={{
                                 // width: 'calc(100% - 200px)',
-                            }}  
+                            }}
                             defaultValue={socketUrl}
                             onChange={handleWebsocketInputOnChange}
                         />
@@ -144,7 +199,7 @@ export default () => {
                             { value: 3, label: "3", },
                             { value: 4, label: "4", },
                             { value: 6, label: "6", },
-                            
+
                         ]}
                     />
                 </Card>
@@ -158,6 +213,11 @@ export default () => {
                         Stop Record
                     </Button>
                     </Space>
+                </Card>
+                <Card>
+                    <Button type='primary' onClick={showModal}>
+                        Show Records
+                    </Button>
                 </Card>
             </Space>
             <StyledRow gutter={[24, 24]}>
@@ -174,12 +234,67 @@ export default () => {
             <Card>
                 <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}> Check all </Checkbox> <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
             </Card>
+            <Button
+          type="primary"
+          onClick={() => {
+            Modal.confirm({
+              title: 'Confirm',
+              content: 'Bla bla ...',
+              footer: (_, { OkBtn, CancelBtn }) => (
+                <>
+                  <Button>Custom Button</Button>
+                  <CancelBtn />
+                  <OkBtn />
+                </>
+              ),
+            });
+          }}
+        >
+          Open Modal Confirm
+        </Button>
+        <Space></Space>
+            <Modal
+                title="Records"
+                open={open}
+                onOk={handleOk}
+                confirmLoading={confirmLoading}
+                onCancel={handleCancel}
+
+                footer={(_, { OkBtn, CancelBtn }) => (
+                  <>
+                    <Button>Custom Button</Button>
+                    <CancelBtn />
+                    <OkBtn />
+                  </>
+                )}
+            >
+            <List
+              pagination={{
+                position:'bottom',
+                align: 'center',
+                pageSize: 4,
+              }}
+              dataSource={data}
+              renderItem={(item, index) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar src={'csv.png'} />
+                    }
+                    title={<a href={BACKEND_URL_HTTP + '/' + item.href}>{item.title}</a>}
+                  />
+                </List.Item>
+              )} />
+              <Button type="primary" onClick={() => {showModal()}}>
+                Refresh Page
+              </Button>
+            </Modal>
         </>
     )
 }
 
 // inverter
-// 
+//
 
 // other state/ status
-// vcu_status, rear_sensor_status, 
+// vcu_status, rear_sensor_status,
