@@ -55,7 +55,7 @@ http_server.put('/manual-record', (req, res) => {
     }
 })
 
-const getFiles = (dir, files = new Object) => {
+const getFiles = (dir, files = []) => {
     const fileList = fs.readdirSync(dir);
     for (const file of fileList) {
         const name = `${dir}/${file}`;
@@ -63,12 +63,11 @@ const getFiles = (dir, files = new Object) => {
             getFiles(name, files);
         }
         else if (name.indexOf('.csv') !== -1) {
-            files = {
-                ...files,
-                [file]: file,
-                [name]: name,
-            }
-            }
+            files.push({
+                title: file,
+                href: name.slice(9)
+            })
+        }
     }
     return files
 }
