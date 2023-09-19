@@ -2,6 +2,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 import express from 'express';
 import cors from 'cors';
 import * as fs from 'fs';
+import path from 'path';
 import ObjectToCSV from 'object-to-csv';
 import keys from './keys.js';
 
@@ -18,7 +19,7 @@ const http_server = express();
 
 http_server.use(cors());
 http_server.use(express.json());
-
+http_server.use(express.static('./records'));
 http_server.get("/", (req, res) => {
     res.send("GET");
 });
@@ -54,6 +55,30 @@ http_server.put('/manual-record', (req, res) => {
     }
 })
 
+const getFiles = (dir, files = new Object) => {
+    const fileList = fs.readdirSync(dir);
+    for (const file of fileList) {
+        const name = `${dir}/${file}`;
+        if (fs.statSync(name).isDirectory()) {
+            getFiles(name, files);
+        }
+        else if (name.indexOf('.csv') !== -1) {
+            files = {
+                ...files,
+                [file]: file,
+                [name]: name,
+            }
+            }
+    }
+    return files
+}
+
+http_server.get('/get-records', (req, res) => {
+    const files = getFiles('./records');
+    console.log(files);
+    res.send(files);
+})
+
 http_server.listen(httpport, () => {
     console.log("http server listen on port " + httpport);
 });
@@ -84,7 +109,7 @@ ws_server.on('connection', function(socket) {
                 let otc = new ObjectToCSV({keys, data: json_to_write});
                 otc.quote = '';
                 let csv = otc.getCSV().split('\n').slice(1).join('\n');
-                fs.writeFileSync('./records/manual/' + manual_filename+ '.csv' , csv, {flag: "a+"});
+                fs.writeFileSync('./records' + manual_filename + '-manual' + '.csv' , csv, {flag: "a+"});
             }
             else {
                 if (manual_start) {
@@ -95,7 +120,7 @@ ws_server.on('connection', function(socket) {
                     let otc = new ObjectToCSV({keys, data: json_to_write});
                     otc.quote = '';
                     let csv = otc.getCSV();
-                    fs.writeFileSync('./records/manual/' + manual_filename+ '.csv' , csv, {flag: "a+"});
+                    fs.writeFileSync('./records/manual/' + manual_filename + '-manual' + '.csv' , csv, {flag: "a+"});
                 }
             }
             if (recording) {
@@ -105,7 +130,7 @@ ws_server.on('connection', function(socket) {
                 let otc = new ObjectToCSV({keys, data: json_to_write});
                 otc.quote = '';
                 let csv = otc.getCSV().split('\n').slice(1).join('\n');
-                fs.writeFileSync('./records/' + filename + '.csv' , csv, {flag: "a+"});
+                fs.writeFileSync('./records/' + filename + '-auto' + '.csv' , csv, {flag: "a+"});
             }
             else {
                 if (json_to_write[0]['vcu_status'] == 2 || json_to_write[0]['vcu_status'] == 3) {
@@ -115,7 +140,7 @@ ws_server.on('connection', function(socket) {
                     let otc = new ObjectToCSV({keys, data: json_to_write});
                     otc.quote = '';
                     let csv = otc.getCSV();
-                    fs.writeFileSync('./records/' + filename + '.csv' , csv, {flag: "a+"});
+                    fs.writeFileSync('./records/' + filename + '-auto' +'.csv' , csv, {flag: "a+"});
                 }
             }
         }
