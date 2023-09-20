@@ -149,14 +149,23 @@ export default () => {
     const [modalText, setModalText] = useState('Content of the modal');
 
     const [data, setData] = useState(defaultData);
+    const [manualData, setManualData] = useState(defaultData);
+    const [autoData, setAutoData] = useState(defaultData);
     const showModal = async () => {
       setOpen(true);
       setConfirmLoading(true);
-      const recordsJson = await axios.get(BACKEND_URL_HTTP + '/get-records')
+      const manualRecordsJson = await axios.get(BACKEND_URL_HTTP + '/get-records/manual')
       .then((res) => {
+        console.log(res.data)
         return res.data
       })
-      setData(recordsJson);
+      const autoRecordsJson = await axios.get(BACKEND_URL_HTTP + '/get-records/auto')
+      .then((res) => {
+        console.log(res.data)
+        return res.data
+      })
+      setAutoData(autoRecordsJson);
+      setManualData(manualRecordsJson);
       console.log("fetch records files")
     };
 
@@ -244,26 +253,8 @@ export default () => {
             <Card>
                 <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}> Check all </Checkbox> <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
             </Card>
-            <Button
-          type="primary"
-          onClick={() => {
-            Modal.confirm({
-              title: 'Confirm',
-              content: 'Bla bla ...',
-              footer: (_, { OkBtn, CancelBtn }) => (
-                <>
-                  <Button>Custom Button</Button>
-                  <CancelBtn />
-                  <OkBtn />
-                </>
-              ),
-            });
-          }}
-        >
-          Open Modal Confirm
-        </Button>
-        <Space></Space>
             <Modal
+                width="auto"
                 title="Records"
                 open={open}
                 onOk={handleOk}
@@ -284,7 +275,24 @@ export default () => {
                 align: 'center',
                 pageSize: 4,
               }}
-              dataSource={data}
+              dataSource={manualData}
+              renderItem={(item, index) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar src={'csv.png'} />
+                    }
+                    title={<a href={BACKEND_URL_HTTP + '/' + item.href}>{item.title}</a>}
+                  />
+                </List.Item>
+              )} />
+            <List
+              pagination={{
+                position:'bottom',
+                align: 'center',
+                pageSize: 4,
+              }}
+              dataSource={autoData}
               renderItem={(item, index) => (
                 <List.Item>
                   <List.Item.Meta
