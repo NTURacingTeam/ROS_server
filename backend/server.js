@@ -72,10 +72,19 @@ const getFiles = (dir, files = []) => {
     return files
 }
 
-http_server.get('/get-records', (req, res) => {
-    const files = getFiles('./records');
+http_server.get('/get-records/auto', (req, res) => {
+    const files = getFiles('./records/auto');
     console.log(files);
     res.send(files);
+})
+http_server.get('/get-records/manual', (req, res) => {
+    const files = getFiles('./records/manual');
+    console.log(files);
+    res.send(files);
+})
+
+http_server.get('/get-recording-status', (req, res) => {
+    res.send(manual_recording);
 })
 
 http_server.listen(httpport, () => {
@@ -108,7 +117,7 @@ ws_server.on('connection', function(socket) {
                 let otc = new ObjectToCSV({keys, data: json_to_write});
                 otc.quote = '';
                 let csv = otc.getCSV().split('\n').slice(1).join('\n');
-                fs.writeFileSync('./records' + manual_filename + '-manual' + '.csv' , csv, {flag: "a+"});
+                fs.writeFileSync('./records/manual/' + manual_filename + '-manual' + '.csv' , csv, {flag: "a+"});
             }
             else {
                 if (manual_start) {
@@ -129,7 +138,7 @@ ws_server.on('connection', function(socket) {
                 let otc = new ObjectToCSV({keys, data: json_to_write});
                 otc.quote = '';
                 let csv = otc.getCSV().split('\n').slice(1).join('\n');
-                fs.writeFileSync('./records/' + filename + '-auto' + '.csv' , csv, {flag: "a+"});
+                fs.writeFileSync('./records/auto/' + filename + '-auto' + '.csv' , csv, {flag: "a+"});
             }
             else {
                 if (json_to_write[0]['vcu_status'] == 2 || json_to_write[0]['vcu_status'] == 3) {
@@ -139,7 +148,7 @@ ws_server.on('connection', function(socket) {
                     let otc = new ObjectToCSV({keys, data: json_to_write});
                     otc.quote = '';
                     let csv = otc.getCSV();
-                    fs.writeFileSync('./records/' + filename + '-auto' +'.csv' , csv, {flag: "a+"});
+                    fs.writeFileSync('./records/auto/' + filename + '-auto' +'.csv' , csv, {flag: "a+"});
                 }
             }
         }
