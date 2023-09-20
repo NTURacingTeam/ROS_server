@@ -254,7 +254,6 @@ export default () => {
                 <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}> Check all </Checkbox> <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
             </Card>
             <Modal
-                width="auto"
                 title="Records"
                 open={open}
                 onOk={handleOk}
@@ -269,6 +268,7 @@ export default () => {
                   </>
                 )}
             >
+              <h4>manual</h4>
             <List
               pagination={{
                 position:'bottom',
@@ -286,6 +286,7 @@ export default () => {
                   />
                 </List.Item>
               )} />
+              <h4>auto</h4>
             <List
               pagination={{
                 position:'bottom',
