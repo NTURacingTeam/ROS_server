@@ -124,7 +124,7 @@ ws_server.on('connection', function(socket) {
                     manual_start = false;
                     manual_recording = true;
                     let record_start_time = new Date(1000*json_data["timestamp"]);
-                    manual_filename= record_start_time.getFullYear() + '-' + record_start_time.getMonth() + '-' + record_start_time.getDate() + '-' + record_start_time.getHours() + '-' + record_start_time.getMinutes() + '-' + record_start_time.getSeconds();
+                    manual_filename= record_start_time.getFullYear() + '-' + record_start_time.getMonth()+1 + '-' + record_start_time.getDate() + '-' + record_start_time.getHours() + '-' + record_start_time.getMinutes() + '-' + record_start_time.getSeconds();
                     let otc = new ObjectToCSV({keys, data: json_to_write});
                     otc.quote = '';
                     let csv = otc.getCSV();
@@ -144,7 +144,7 @@ ws_server.on('connection', function(socket) {
                 if (json_to_write[0]['vcu_status'] == 2 || json_to_write[0]['vcu_status'] == 3) {
                     recording = true;
                     let record_start_time = new Date(1000*json_data["timestamp"]);
-                    filename = record_start_time.getFullYear() + '-' + record_start_time.getMonth() + '-' + record_start_time.getDate() + '-' + record_start_time.getHours() + '-' + record_start_time.getMinutes() + '-' + record_start_time.getSeconds();
+                    filename = record_start_time.getFullYear() + '-' + record_start_time.getMonth()+1 + '-' + record_start_time.getDate() + '-' + record_start_time.getHours() + '-' + record_start_time.getMinutes() + '-' + record_start_time.getSeconds();
                     let otc = new ObjectToCSV({keys, data: json_to_write});
                     otc.quote = '';
                     let csv = otc.getCSV();
