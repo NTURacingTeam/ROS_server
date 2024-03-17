@@ -1,2 +1,2 @@
-export const BACKEND_URL = "ws://140.112.14.14:21543"
-export const BACKEND_URL_HTTP = "http://140.112.14.14:21544"
+export const BACKEND_URL = "ws://ws.monitor.nturacing.tw"
+export const BACKEND_URL_HTTP = "http://backend.monitor.nturacing.tw"
