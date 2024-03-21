@@ -19,7 +19,7 @@ const http_server = express();
 
 http_server.use(cors());
 http_server.use(express.json());
-http_server.use(express.static('./records'));
+http_server.use(express.static('/home/nturt/Documents/docker/packages/ros2/raw_data'));
 http_server.get("/", (req, res) => {
     res.send("GET");
 });
@@ -59,21 +59,22 @@ const getFiles = (dir, files = []) => {
     const fileList = fs.readdirSync(dir);
     for (const file of fileList) {
         const name = `${dir}/${file}`;
-        if (fs.statSync(name).isDirectory()) {
-            getFiles(name, files);
-        }
-        else if (name.indexOf('.csv') !== -1) {
+        // if (fs.statSync(name).isDirectory()) {
+        //     getFiles(name, files);
+        // }
+        if (name.indexOf('.csv') !== -1) {
             files.push({
                 title: file,
-                href: name.slice(9)
+                href: file
             })
         }
     }
-    return files
+    console.log(files);
+    return files;
 }
 
 http_server.get('/get-records/auto', (req, res) => {
-    const files = getFiles('./records/auto');
+    const files = getFiles('/home/nturt/Documents/docker/packages/ros2/raw_data');
     console.log(files);
     res.send(files);
 })

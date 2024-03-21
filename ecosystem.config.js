@@ -11,7 +11,7 @@ module.exports = {
   },
   {
     name   : "records",
-    script : "cd backend/records && php -S 0.0.0.0:8889"
+    script : "cd /home/nturt/Documents/docker/packages/ros2/raw_data && php -S 0.0.0.0:8889"
 		//watch  : true,
   },
   ]
